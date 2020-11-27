@@ -41,7 +41,7 @@ class SignUp extends Component {
             })
 
         } catch(error) {
-            console.log(error);
+            console.error(error);
         }
     };
 
@@ -61,7 +61,7 @@ class SignUp extends Component {
                     <FormInput
                         type='text'
                         name='displayName'
-                        value={this.state.displayName}
+                        value={displayName}
                         handleChange={this.handleChange}
                         label='Display Name'
                         required
@@ -69,7 +69,7 @@ class SignUp extends Component {
                     <FormInput
                         type='email'
                         name='email'
-                        value={this.state.email}
+                        value={email}
                         handleChange={this.handleChange}
                         label='Email'
                         required
@@ -77,7 +77,7 @@ class SignUp extends Component {
                     <FormInput
                         type='password'
                         name='password'
-                        value={this.state.password}
+                        value={password}
                         handleChange={this.handleChange}
                         label='Password'
                         required
@@ -85,7 +85,7 @@ class SignUp extends Component {
                     <FormInput
                         type='password'
                         name='confirmPassword'
-                        value={this.state.confirmPassword}
+                        value={confirmPassword}
                         handleChange={this.handleChange}
                         label='Confirm Password'
                         required
