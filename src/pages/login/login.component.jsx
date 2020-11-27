@@ -1,5 +1,5 @@
 import React from 'react';
-import './login.scss';
+import './login.styles.scss';
 import SignIn from '../../components/sign-in/sign-in.component';
 
 const login = () => (
