@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import './App.css';
+
 import { Switch, Route } from 'react-router-dom';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import Contact from './pages/contact/contact-us.component';
+import Support from './pages/support/support.component';
+import Pets from './pages/pets/pets.component';
+import Friends from './pages/friends/friends.component';
+import Vets from './pages/vets/vets.component';
+import Dashboard from './pages/dashboard/dashboard.component';
+import Shop from './pages/shop/shop.component';
 
 
 class App extends Component {
@@ -19,6 +28,8 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+
+    //user authentication
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {
         if(userAuth){
@@ -37,7 +48,7 @@ class App extends Component {
             });
           });
         }
-        
+
         this.setState({ currentUser: userAuth });
       }
     );
@@ -49,11 +60,17 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/support" component={Support} />
+          <Route exact path="/pets" component={Pets} />
+          <Route exact path="/friends" component={Friends} />
+          <Route exact path="/vets" component={Vets} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/shop" component={Shop} />
         </Switch>
       </div>
     );
   }
-  
 }
 
 export default App;

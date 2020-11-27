@@ -11,32 +11,32 @@ class Directory extends Component {
 					id: 1,
 					title: 'pets',
 					imageUrl: 'https://www.linkpicture.com/q/MY-PETS.jpg',
-					linkUrl: ''
+					linkUrl: 'pets'
 				},
 				{
 					id: 2,
 					title: 'friends',
 					imageUrl: 'https://www.linkpicture.com/q/FRIENDS.jpg',
-					linkUrl: ''
+					linkUrl: 'friends'
 				},
 				{
 					id: 3,
 					title: 'vets',
 					imageUrl: 'https://www.linkpicture.com/q/VETS.jpg',
-					linkUrl: ''
+					linkUrl: 'vets'
 				},
 				{
 					id: 4,
 					title: 'dash board',
 					imageUrl: 'https://www.linkpicture.com/q/DASH.png',
-					linkUrl: '',
+					linkUrl: 'dashboard',
 					size: 'large'
 				},
 				{
 					id: 5,
 					title: 'shop',
 					imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-					linkUrl: '',
+					linkUrl: 'shop',
 					size: 'large'
 				}
 			]
