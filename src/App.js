@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 
 class App extends Component {
@@ -13,17 +13,34 @@ class App extends Component {
 
     this.state = {
       currentUser: null
-    }
+    };
   }
 
-  componentDidMount() {
-    auth.onAuthStateChanged(
-      user => {
-        this.setState({currentUser: user});
+  unsubscribeFromAuth = null;
 
-        console.log(user);
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(
+      async userAuth => {
+        if(userAuth){
+          const userRef = await createUserProfileDocument(userAuth);
+
+          userRef.onSnapshot(snapShot => {
+            this.setState({
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data()
+              }
+            },
+            () => {
+              //logging current user from a snapshot of the database
+              console.log(this.state);
+            });
+          });
+        }
+        
+        this.setState({ currentUser: userAuth });
       }
-    )
+    );
   }
   render(){
     return (
