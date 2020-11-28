@@ -35,7 +35,7 @@ class Directory extends Component {
 				{
 					id: 5,
 					title: 'shop',
-					imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+					imageUrl: 'https://www.linkpicture.com/q/dog-swords.jpg',
 					linkUrl: 'shop',
 					size: 'large'
 				}
