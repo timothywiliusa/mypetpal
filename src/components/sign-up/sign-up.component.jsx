@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
+import { Link } from 'react-router-dom';
 import CustomButton from '../custom-button/custom-button.component';
 
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
@@ -15,14 +16,15 @@ class SignUp extends Component {
             displayName: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            firstName: ''
         };     
     }
 
     handleSubmit =  async e => {
         e.preventDefault();
 
-        const { displayName, email, password, confirmPassword } = this.state;
+        const { displayName, email, password, confirmPassword, firstName } = this.state;
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -37,9 +39,10 @@ class SignUp extends Component {
                 displayName: '',
                 email: '',
                 password: '',
-                confirmPassword: ''
+                confirmPassword: '',
+                firstName: ''
             })
-
+			
         } catch(error) {
             console.error(error);
         }
@@ -52,7 +55,7 @@ class SignUp extends Component {
     }
     
     render() {
-        const {displayName, email, password, confirmPassword } = this.state;
+        const {displayName, email, password, confirmPassword, firstName } = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -90,7 +93,25 @@ class SignUp extends Component {
                         label='Confirm Password'
                         required
                     />
-                    <CustomButton type='submit'>SIGN UP</CustomButton>
+                    <FormInput
+                        type='firstName'
+                        name='firstName'
+                        value={firstName}
+                        handleChange={this.handleChange}
+                        label='First Name'
+                        required
+                    />
+                    <FormInput
+                        type='firstName'
+                        name='firstName'
+                        value={firstName}
+                        handleChange={this.handleChange}
+                        label='First Name'
+                        required
+                    />
+                    <CustomButton type='submit'>
+							CREATE ACCOUNT
+					</CustomButton>
                 </form>
                     
             </div>
