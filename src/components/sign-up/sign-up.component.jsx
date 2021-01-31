@@ -14,17 +14,25 @@ class SignUp extends Component {
             displayName: '',
             email: '',
             password: '',
+<<<<<<< HEAD
             confirmPassword: '',
             firstName: '',
             lastName: '',
             address: ''
+=======
+            confirmPassword: ''
+>>>>>>> parent of af7e04b... Committing
         };     
     }
 
     handleSubmit =  async e => {
         e.preventDefault();
 
+<<<<<<< HEAD
         const { displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+=======
+        const { displayName, email, password, confirmPassword } = this.state;
+>>>>>>> parent of af7e04b... Committing
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -39,12 +47,16 @@ class SignUp extends Component {
                 displayName: '',
                 email: '',
                 password: '',
+<<<<<<< HEAD
                 confirmPassword: '',
                 firstName: '',
                 lastName: '',
                 address: ''
+=======
+                confirmPassword: ''
+>>>>>>> parent of af7e04b... Committing
             })
-			
+
         } catch(error) {
             console.error(error);
         }
@@ -57,7 +69,11 @@ class SignUp extends Component {
     }
     
     render() {
+<<<<<<< HEAD
         const {displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+=======
+        const {displayName, email, password, confirmPassword } = this.state;
+>>>>>>> parent of af7e04b... Committing
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -95,6 +111,7 @@ class SignUp extends Component {
                         label='Confirm Password*'
                         required
                     />
+<<<<<<< HEAD
                     <FormInput
                         type='firstName'
                         name='firstName'
@@ -130,6 +147,9 @@ class SignUp extends Component {
                     <CustomButton type='submit'>
 							CREATE ACCOUNT
 					</CustomButton>
+=======
+                    <CustomButton type='submit'>SIGN UP</CustomButton>
+>>>>>>> parent of af7e04b... Committing
                 </form>
                     
             </div>
