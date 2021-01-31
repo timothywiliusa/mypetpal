@@ -1,7 +1,6 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
-import { Link } from 'react-router-dom';
 import CustomButton from '../custom-button/custom-button.component';
 
 import './sign-in.styles.scss';
@@ -58,12 +57,9 @@ class SignIn extends Component {
 						label='password'
 						required
 					/>
-					<div className='buttons' >
+					<div className='buttons' ></div>
 					<CustomButton type='submit' value='Submit Form'>sign in</CustomButton>
 					<CustomButton type='button' onClick={signInWithGoogle} isGoogleSignIn>sign in with google</CustomButton>
-					<div className='question'>First time signing up?</div>
-					<Link className="create" to="/signup"> Create Account </Link>
-					</div>
 				</form>
 			</div>
 		);

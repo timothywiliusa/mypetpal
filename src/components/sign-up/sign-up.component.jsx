@@ -44,7 +44,7 @@ class SignUp extends Component {
                 lastName: '',
                 address: ''
             })
-			
+
         } catch(error) {
             console.error(error);
         }
@@ -128,10 +128,9 @@ class SignUp extends Component {
                         optional
                     />
                     <CustomButton type='submit'>
-							CREATE ACCOUNT
-					</CustomButton>
+							        CREATE ACCOUNT
+				          	</CustomButton>
                 </form>
-                    
             </div>
         )
     }
