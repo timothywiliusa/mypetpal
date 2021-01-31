@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\form-input",
+    "\\src\\components\\navbar",
+    "\\src\\components\\sign-in",
+    "\\src\\components\\sign-up",
+    "\\src\\pages"
+  ],
+  "SelectedNode": "\\src\\components\\sign-up\\sign-up.component.jsx",
+  "PreviewInSolutionExplorer": false
+}

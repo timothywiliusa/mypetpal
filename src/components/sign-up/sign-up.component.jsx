@@ -14,25 +14,17 @@ class SignUp extends Component {
             displayName: '',
             email: '',
             password: '',
-<<<<<<< HEAD
             confirmPassword: '',
             firstName: '',
             lastName: '',
             address: ''
-=======
-            confirmPassword: ''
->>>>>>> parent of af7e04b... Committing
         };     
     }
 
     handleSubmit =  async e => {
         e.preventDefault();
 
-<<<<<<< HEAD
         const { displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
-=======
-        const { displayName, email, password, confirmPassword } = this.state;
->>>>>>> parent of af7e04b... Committing
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -47,16 +39,12 @@ class SignUp extends Component {
                 displayName: '',
                 email: '',
                 password: '',
-<<<<<<< HEAD
                 confirmPassword: '',
                 firstName: '',
                 lastName: '',
                 address: ''
-=======
-                confirmPassword: ''
->>>>>>> parent of af7e04b... Committing
             })
-
+			
         } catch(error) {
             console.error(error);
         }
