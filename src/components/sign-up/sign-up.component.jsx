@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
-import { Link } from 'react-router-dom';
 import CustomButton from '../custom-button/custom-button.component';
-
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-
 import './sign-up.styles.scss';
+
+
 
 class SignUp extends Component {
     constructor(){
         super();
-
         this.state = {
             displayName: '',
             email: '',
             password: '',
             confirmPassword: '',
-            firstName: ''
+            firstName: '',
+            lastName: '',
+            address: ''
         };     
     }
 
     handleSubmit =  async e => {
         e.preventDefault();
 
-        const { displayName, email, password, confirmPassword, firstName } = this.state;
+        const { displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -33,14 +33,16 @@ class SignUp extends Component {
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, {displayName});
+                await createUserProfileDocument(user, {displayName, firstName, lastName, address});
 
             this.setState({
                 displayName: '',
                 email: '',
                 password: '',
                 confirmPassword: '',
-                firstName: ''
+                firstName: '',
+                lastName: '',
+                address: ''
             })
 			
         } catch(error) {
@@ -55,7 +57,7 @@ class SignUp extends Component {
     }
     
     render() {
-        const {displayName, email, password, confirmPassword, firstName } = this.state;
+        const {displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -66,7 +68,7 @@ class SignUp extends Component {
                         name='displayName'
                         value={displayName}
                         handleChange={this.handleChange}
-                        label='Display Name'
+                        label='Display Name*'
                         required
                     />
                     <FormInput
@@ -74,7 +76,7 @@ class SignUp extends Component {
                         name='email'
                         value={email}
                         handleChange={this.handleChange}
-                        label='Email'
+                        label='Email*'
                         required
                     />
                     <FormInput
@@ -82,7 +84,7 @@ class SignUp extends Component {
                         name='password'
                         value={password}
                         handleChange={this.handleChange}
-                        label='Password'
+                        label='Password*'
                         required
                     />
                     <FormInput
@@ -90,7 +92,7 @@ class SignUp extends Component {
                         name='confirmPassword'
                         value={confirmPassword}
                         handleChange={this.handleChange}
-                        label='Confirm Password'
+                        label='Confirm Password*'
                         required
                     />
                     <FormInput
@@ -98,16 +100,32 @@ class SignUp extends Component {
                         name='firstName'
                         value={firstName}
                         handleChange={this.handleChange}
-                        label='First Name'
+                        label='First Name*'
                         required
                     />
                     <FormInput
-                        type='firstName'
-                        name='firstName'
-                        value={firstName}
+                        type='lastName'
+                        name='lastName'
+                        value={lastName}
                         handleChange={this.handleChange}
-                        label='First Name'
+                        label='Last Name*'
                         required
+                    />
+                    <FormInput
+                        type='address'
+                        name='address'
+                        value={address}
+                        handleChange={this.handleChange}
+                        label='Address'
+                        optional
+                    />
+                    <FormInput
+                        type='address'
+                        name='address'
+                        value={address}
+                        handleChange={this.handleChange}
+                        label='Phone Number'
+                        optional
                     />
                     <CustomButton type='submit'>
 							CREATE ACCOUNT
