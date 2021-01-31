@@ -52,15 +52,7 @@ class SignUp extends Component {
     }
     
     render() {
-<<<<<<< HEAD
         const {displayName, email, password, confirmPassword } = this.state;
-=======
-<<<<<<< HEAD
-        const {displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
-=======
-        const {displayName, email, password, confirmPassword } = this.state;
->>>>>>> parent of af7e04b... Committing
->>>>>>> parent of 2020cb2... temp
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -98,51 +90,7 @@ class SignUp extends Component {
                         label='Confirm Password'
                         required
                     />
-<<<<<<< HEAD
-                    <CustomButton type='submit'>SIGN UP</CustomButton>
-=======
-<<<<<<< HEAD
-                    <FormInput
-                        type='firstName'
-                        name='firstName'
-                        value={firstName}
-                        handleChange={this.handleChange}
-                        label='First Name*'
-                        required
-                    />
-                    <FormInput
-                        type='lastName'
-                        name='lastName'
-                        value={lastName}
-                        handleChange={this.handleChange}
-                        label='Last Name*'
-                        required
-                    />
-                    <FormInput
-                        type='address'
-                        name='address'
-                        value={address}
-                        handleChange={this.handleChange}
-                        label='Address'
-                        optional
-                    />
-                    <FormInput
-                        type='address'
-                        name='address'
-                        value={address}
-                        handleChange={this.handleChange}
-                        label='Phone Number'
-                        optional
-                    />
-                    <CustomButton type='submit'>
-							CREATE ACCOUNT
-					</CustomButton>
-=======
-                    <CustomButton type='submit'>SIGN UP</CustomButton>
->>>>>>> parent of af7e04b... Committing
->>>>>>> parent of 2020cb2... temp
                 </form>
-                    
             </div>
         )
     }
