@@ -39,7 +39,7 @@ class SignUp extends Component {
                 password: '',
                 confirmPassword: ''
             })
-
+			
         } catch(error) {
             console.error(error);
         }
@@ -90,7 +90,43 @@ class SignUp extends Component {
                         label='Confirm Password'
                         required
                     />
+                    <FormInput
+                        type='firstName'
+                        name='firstName'
+                        value={firstName}
+                        handleChange={this.handleChange}
+                        label='First Name*'
+                        required
+                    />
+                    <FormInput
+                        type='lastName'
+                        name='lastName'
+                        value={lastName}
+                        handleChange={this.handleChange}
+                        label='Last Name*'
+                        required
+                    />
+                    <FormInput
+                        type='address'
+                        name='address'
+                        value={address}
+                        handleChange={this.handleChange}
+                        label='Address'
+                        optional
+                    />
+                    <FormInput
+                        type='address'
+                        name='address'
+                        value={address}
+                        handleChange={this.handleChange}
+                        label='Phone Number'
+                        optional
+                    />
+                    <CustomButton type='submit'>
+							CREATE ACCOUNT
+					</CustomButton>
                 </form>
+                    
             </div>
         )
     }
