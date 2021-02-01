@@ -15,6 +15,7 @@ import Friends from './pages/friends/friends.component';
 import Vets from './pages/vets/vets.component';
 import Dashboard from './pages/dashboard/dashboard.component';
 import Shop from './pages/shop/shop.component';
+import UserProfile from './pages/userprofile/userprofile.component';
 
 
 class App extends Component {
@@ -63,6 +64,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/userprofile" component={UserProfile}/>
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets} />

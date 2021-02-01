@@ -1,10 +1,11 @@
 import React from 'react';
 import './userprofile.styles.scss'
-import userProfile from '.. /../components/creat-userprofile/create-userprofile.component';
+import UserProfile from '../../components/create-userdetails/create-userdetails.component';
+
 
 const userprofile = () => (
     <div className = "profile">
-      <userProfile />
+      <UserProfile />
     </div>
       );
 
