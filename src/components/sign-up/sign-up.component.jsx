@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { auth, firestore, createUserProfileDocument } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
 
 
@@ -17,14 +17,15 @@ class SignUp extends Component {
             confirmPassword: '',
             firstName: '',
             lastName: '',
-            address: ''
+            address: '',
+            phoneNumber: ''
         };     
     }
 
     handleSubmit =  async e => {
         e.preventDefault();
 
-        const { displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+        const { displayName, email, password, confirmPassword, firstName, lastName, address, phoneNumber} = this.state;
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -33,7 +34,7 @@ class SignUp extends Component {
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-                await createUserProfileDocument(user, {displayName, firstName, lastName, address});
+                await createUserProfileDocument(user, {displayName, firstName, lastName, address, phoneNumber});
 
             this.setState({
                 displayName: '',
@@ -42,9 +43,13 @@ class SignUp extends Component {
                 confirmPassword: '',
                 firstName: '',
                 lastName: '',
-                address: ''
+                address: '',
+                phoneNumer: ''
             })
-			
+            
+            firestore.collection('users').doc(user.uid).collection('friends').add({
+                name: "name"
+            })
         } catch(error) {
             console.error(error);
         }
@@ -57,7 +62,7 @@ class SignUp extends Component {
     }
     
     render() {
-        const {displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+        const {displayName, email, password, confirmPassword, firstName, lastName, address, phoneNumber} = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -120,9 +125,9 @@ class SignUp extends Component {
                         optional
                     />
                     <FormInput
-                        type='address'
-                        name='address'
-                        value={address}
+                        type='phoneNumber'
+                        name='phoneNumber'
+                        value={phoneNumber}
                         handleChange={this.handleChange}
                         label='Phone Number'
                         optional

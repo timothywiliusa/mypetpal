@@ -39,11 +39,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 }
 
-firebase.initializeApp(config);
+var app = firebase.initializeApp(config);
 
 // storing the user data in the front end
 export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const firestore = firebase.firestore(app);
 
 // sign in with google method
 const provider = new firebase.auth.GoogleAuthProvider();
