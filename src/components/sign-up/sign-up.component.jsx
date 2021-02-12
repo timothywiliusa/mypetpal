@@ -4,7 +4,8 @@ import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, firestore, createUserProfileDocument } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
-
+import { app } from 'firebase';
+import firebase from 'firebase/app';
 
 
 class SignUp extends Component {
@@ -21,6 +22,8 @@ class SignUp extends Component {
             phoneNumber: ''
         };     
     }
+
+    
 
     handleSubmit =  async e => {
         e.preventDefault();
@@ -61,8 +64,12 @@ class SignUp extends Component {
         this.setState({[name]: value})
     }
     
+    
     render() {
         const {displayName, email, password, confirmPassword, firstName, lastName, address, phoneNumber} = this.state;
+        let user = firebase.auth().currentUser;
+        
+
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
@@ -73,7 +80,7 @@ class SignUp extends Component {
                         name='displayName'
                         value={displayName}
                         handleChange={this.handleChange}
-                        label='Display Name*'
+                        label={user.uid}
                         required
                     />
                     <FormInput
