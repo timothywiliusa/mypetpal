@@ -1,12 +1,19 @@
-import React from 'react';
-import './userprofile.styles.scss'
-import UserProfile from '../../components/create-userdetails/create-userdetails.component';
+import userEvent from "@testing-library/user-event"
+import React, { useState } from "react"
+import { Card } from "react-bootstrap"
+import { useAuth } from "../../firebase/AuthContext"
 
 
-const userprofile = () => (
-    <div className = "profile">
-      <UserProfile />
-    </div>
-      );
-
-export default userprofile;
+export default function Userprofile(){
+  const { currentUser } = useAuth()
+  return(
+    <>
+    <Card>
+        <Card.Body>
+            <h2 className = "text center mb-4"> Profile </h2>
+            <strong>Email:</strong> {user.email}
+        </Card.Body>
+    </Card>
+    </>
+)
+}
