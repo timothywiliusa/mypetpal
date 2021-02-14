@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { auth, firestore, createUserProfileDocument } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
-
+//import firebase from 'firebase/app';
 
 
 class SignUp extends Component {
@@ -17,14 +17,26 @@ class SignUp extends Component {
             confirmPassword: '',
             firstName: '',
             lastName: '',
-            address: ''
+            address: '',
+            phoneNumber: '',
+            user: null
         };     
     }
+    
+
+    componentDidMount = async e =>{
+        const user = this.props.currentUser;
+        console.log('s', this.props.currentUser);
+        this.setState({user: user});
+        console.log('state: ', this.state);
+        this.getName();
+    }
+    
 
     handleSubmit =  async e => {
         e.preventDefault();
 
-        const { displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+        const { displayName, email, password, confirmPassword, firstName, lastName, address, phoneNumber} = this.state;
 
         if (password !== confirmPassword) {
             alert("passwords don't match")
@@ -33,7 +45,7 @@ class SignUp extends Component {
 
         try {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-                await createUserProfileDocument(user, {displayName, firstName, lastName, address});
+                await createUserProfileDocument(user, {displayName, firstName, lastName, address, phoneNumber});
 
             this.setState({
                 displayName: '',
@@ -42,9 +54,13 @@ class SignUp extends Component {
                 confirmPassword: '',
                 firstName: '',
                 lastName: '',
-                address: ''
+                address: '',
+                phoneNumer: ''
             })
-			
+            
+            firestore.collection('users').doc(user.uid).collection('friends').add({
+                name: "name"
+            })
         } catch(error) {
             console.error(error);
         }
@@ -56,21 +72,43 @@ class SignUp extends Component {
         this.setState({[name]: value})
     }
     
+    getName(){
+        const{user} = this.state;
+        if(user==null){
+            console.log('hello');
+            return 'nope';
+        }
+        var userRef = firestore.collection('users').doc(user.uid);
+        userRef.get().then((doc)=>{
+            if(doc.exists){
+                console.log("document data: ", doc.data());
+                this.setState({displayName: doc.data().displayName});
+            } else{
+                console.log("no can do");
+            }
+        })
+    }
+    
     render() {
-        const {displayName, email, password, confirmPassword, firstName, lastName, address} = this.state;
+        const {displayName, email, password, confirmPassword, firstName, lastName, address, phoneNumber} = this.state; 
         return (
             <div className='sign-up'>
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
-                    <FormInput
-                        type='text'
-                        name='displayName'
-                        value={displayName}
-                        handleChange={this.handleChange}
-                        label='Display Name*'
-                        required
-                    />
+                    {
+                        this.props.currentUser ?
+                        <FormInput
+                            type='text'
+                            name='displayName'
+                            value={displayName}
+                            handleChange={this.handleChange}
+                            label={this.props.currentUser.displayName}
+                            required
+                        />
+                        :
+                        <div/>
+                    }
                     <FormInput
                         type='email'
                         name='email'
@@ -117,15 +155,13 @@ class SignUp extends Component {
                         value={address}
                         handleChange={this.handleChange}
                         label='Address'
-                        optional
                     />
                     <FormInput
-                        type='address'
-                        name='address'
-                        value={address}
+                        type='phoneNumber'
+                        name='phoneNumber'
+                        value={phoneNumber}
                         handleChange={this.handleChange}
                         label='Phone Number'
-                        optional
                     />
                     <CustomButton type='submit'>
 							CREATE ACCOUNT
