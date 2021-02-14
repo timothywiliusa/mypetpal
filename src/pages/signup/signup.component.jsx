@@ -2,9 +2,9 @@ import React from 'react';
 import './signup.styles.scss';
 import SignUp from '../../components/sign-up/sign-up.component';
 
-const signup = () => (
+const signup = ({currentUser}) => (
 	<div className="signup">
-		<SignUp />
+		<SignUp currentUser={currentUser}/>
 	</div>
 );
 
