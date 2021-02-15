@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import 'react-phone-number-input/style.css'
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, firestore, createUserProfileDocument } from '../../firebase/firebase.utils';
@@ -25,11 +25,6 @@ class SignUp extends Component {
     
 
     componentDidMount = async e =>{
-        const user = this.props.currentUser;
-        console.log('s', this.props.currentUser);
-        this.setState({user: user});
-        console.log('state: ', this.state);
-        this.getName();
     }
     
 
@@ -55,10 +50,10 @@ class SignUp extends Component {
                 firstName: '',
                 lastName: '',
                 address: '',
-                phoneNumer: ''
+                phoneNumber: ''
             })
             
-            firestore.collection('users').doc(user.uid).collection('friends').add({
+            firestore.collection('friends').doc(user.uid).add({
                 name: "name"
             })
         } catch(error) {
@@ -86,7 +81,7 @@ class SignUp extends Component {
             } else{
                 console.log("no can do");
             }
-        })
+        }) 
     }
     
     render() {
@@ -96,25 +91,20 @@ class SignUp extends Component {
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
-                    {
-                        this.props.currentUser ?
-                        <FormInput
-                            type='text'
-                            name='displayName'
-                            value={displayName}
-                            handleChange={this.handleChange}
-                            label={this.props.currentUser.displayName}
-                            required
-                        />
-                        :
-                        <div/>
-                    }
+                    <FormInput
+                        type='text'
+                        name='displayName'
+                        value={displayName}
+                        handleChange={this.handleChange}
+                        label={'Display Name*'}
+                        required
+                    />
                     <FormInput
                         type='email'
                         name='email'
                         value={email}
                         handleChange={this.handleChange}
-                        label='Email*'
+                        label={'Email*'}
                         required
                     />
                     <FormInput

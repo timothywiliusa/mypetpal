@@ -1,12 +1,12 @@
 import React from 'react';
 import './friends.styles.scss';
+import AddFriend from '../../components/add-friend/add-friend.component';
 
-const Friends = () => (
-	<div>
-		<h2>
-            Your friends
-        </h2>
+
+const friends = ({currentUser}) => (
+	<div className="friends">
+		<AddFriend currentUser={currentUser}/>
 	</div>
 );
 
-export default Friends;
+export default friends;

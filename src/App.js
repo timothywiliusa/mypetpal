@@ -66,8 +66,8 @@ class App extends Component {
           <Route exact path="/signup" render={(props)=> <Signup currentUser={this.state.currentUser}/>} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
-          <Route exact path="/pets" component={Pets}/>} />
-          <Route exact path="/friends" component={Friends} />
+          <Route exact path="/pets" component={Pets} />
+          <Route exact path="/friends" render={(props)=><Friends currentUser={this.state.currentUser}/>} />
           <Route exact path="/vets" component={Vets} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/shop" component={Shop} />
