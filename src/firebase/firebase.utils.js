@@ -51,3 +51,25 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account'});
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
+export const getCurrentUser = () => {
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            return user;
+        } else {
+            console.log("no signed in user")
+          return
+        }
+      });
+}
+
+export const getUserDocumentReference = (userAuth) => {
+    if(!userAuth) return;
+
+    // initialize a doc with the user id
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    // check if the user exists
+    //const snapShot = await userRef.get();
+   
+    return userRef;
+}
