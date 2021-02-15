@@ -7,6 +7,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
+import Signup from './pages/signup/signup.component';
 import Contact from './pages/contact/contact-us.component';
 import Support from './pages/support/support.component';
 import Pets from './pages/pets/pets.component';
@@ -62,6 +63,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" render={(props)=> <Signup currentUser={this.state.currentUser}/>} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets}/>} />

@@ -9,7 +9,23 @@
 
     .buttons {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+        width: 66.5%;
+
+        .question {
+            font-size: 19px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        .create {
+            color: blue;
+            font-size: 19px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
     }
 }
-
