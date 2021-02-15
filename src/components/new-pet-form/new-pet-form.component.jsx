@@ -3,6 +3,7 @@ import './new-pet-form.styles.scss'
 
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
+import {Link} from 'react-router-dom'
 
 
 class NewPetForm extends Component {
@@ -54,7 +55,7 @@ class NewPetForm extends Component {
     }
     
     render() {
-        const {petName, species} = this.state;
+        const {petName, species, sex, age, weight, neutered} = this.state;
         return (
             <div className='new-pet'>
                 <h2 className='title'>Create a new pet profile</h2>
@@ -77,7 +78,49 @@ class NewPetForm extends Component {
                         label='I am A'
                         required
                     />
-                    <CustomButton type='submit'>CREATE</CustomButton>
+                   
+                   <FormInput
+                        type='text'
+                        name='sex'
+                        value={sex}
+                        handleChange={this.handleChange}
+                        label='M/F'
+                        required
+                    />
+
+                    <FormInput
+                        type='text'
+                        name='age'
+                        value={age}
+                        handleChange={this.handleChange}
+                        label='Age'
+                        required
+                    />
+
+                    <FormInput
+                        type='text'
+                        name='weight'
+                        value={weight}
+                        handleChange={this.handleChange}
+                        label='Weight'
+                        required
+                    />
+                    <FormInput
+                        type='text'
+                        name='neutered'
+                        value={neutered}
+                        handleChange={this.handleChange}
+                        label='neutered'
+                        required
+                    />
+
+                    <Link to={{
+                        pathname: 'pets'
+                    }}>
+                        <CustomButton type='submit'>CREATE</CustomButton>
+                    </Link>
+                   
+
                 </form>
                     
             </div>

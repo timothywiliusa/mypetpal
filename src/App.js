@@ -15,6 +15,7 @@ import Friends from './pages/friends/friends.component';
 import Vets from './pages/vets/vets.component';
 import Dashboard from './pages/dashboard/dashboard.component';
 import Shop from './pages/shop/shop.component';
+import NewPet from './pages/new-pet/new-pet.component'
 
 
 class App extends Component {
@@ -65,11 +66,12 @@ class App extends Component {
           <Route exact path="/signup" render={(props)=> <Signup currentUser={this.state.currentUser}/>} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
-          <Route exact path="/pets" component={Pets} />
+          <Route exact path="/pets" component={Pets}/>} />
           <Route exact path="/friends" component={Friends} />
           <Route exact path="/vets" component={Vets} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/shop" component={Shop} />
+          <Route exact path="/pets/new-pet" component={NewPet} />
         </Switch>
       </div>
     );
