@@ -1,11 +1,10 @@
 import React from 'react';
 import './pets.styles.scss';
+import NewPetForm from '../../components/new-pet-form/new-pet-form.component'
 
 const Pets = () => (
 	<div>
-		<h2>
-            Pets Page
-        </h2>
+		<NewPetForm/>
 	</div>
 );
 
