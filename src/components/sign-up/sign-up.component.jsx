@@ -77,10 +77,6 @@ class SignUp extends Component {
                 address: '',
                 phoneNumber: ''
             })
-            
-            firestore.collection('friends').doc(user.uid).add({
-                name: "name"
-            })
         } catch(error) {
             console.error(error);
         }
@@ -149,7 +145,7 @@ class SignUp extends Component {
                         required
                     />
                     <FormInput
-                        type='firstName'
+                        type='text'
                         name='firstName'
                         value={firstName}
                         handleChange={this.handleChange}
@@ -157,7 +153,7 @@ class SignUp extends Component {
                         required
                     />
                     <FormInput
-                        type='lastName'
+                        type='text'
                         name='lastName'
                         value={lastName}
                         handleChange={this.handleChange}
@@ -165,14 +161,14 @@ class SignUp extends Component {
                         required
                     />
                     <FormInput
-                        type='address'
+                        type='text'
                         name='address'
                         value={address}
                         handleChange={this.handleChange}
                         label='Address'
                     />
                     <FormInput
-                        type='phoneNumber'
+                        type='text'
                         name='phoneNumber'
                         value={phoneNumber}
                         handleChange={this.handleChange}
