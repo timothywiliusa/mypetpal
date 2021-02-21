@@ -1,8 +1,7 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference, getCurrentUser} from '../../firebase/firebase.utils'
+import {auth, getUserDocumentReference } from '../../firebase/firebase.utils'
 import './pets-display.styles.scss';
 
-import {Route,Switch} from 'react-router-dom'
 
 
 
@@ -46,11 +45,6 @@ class PetsDisplay extends Component {
 			  this.setState({ currentUser: userAuth });
 			}
 		  );
-
-		
-		
-		
-		
 	}
 		
 	
@@ -62,7 +56,7 @@ class PetsDisplay extends Component {
 	
 		return(
 			<div>
-				{this.state.currentUser != null ? this.state.currentUser.displayName : null}
+				{this.state.currentUser != null ? <h1>{this.state.currentUser.displayName}</h1> : null}
 			</div>
 		)
 	}
