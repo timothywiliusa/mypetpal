@@ -1,11 +1,13 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference, getCurrentUser} from '../../firebase/firebase.utils'
+import {auth, getUserDocumentReference } from '../../firebase/firebase.utils'
 import './pets-display.styles.scss';
+
 
 import {Route,Switch} from 'react-router-dom'
 import { firestore } from 'firebase';
 
 import {Card} from '../card/card.component'
+
 
 
 
@@ -81,6 +83,7 @@ class PetsDisplay extends Component {
 
 	render(){
 
+
 		const {nPets, pets } = this.state
 		if(this.state.nPets !== 0){
 			return(
@@ -104,6 +107,7 @@ class PetsDisplay extends Component {
 				</div>
 			)
 		}	
+
 	}
 }
 
