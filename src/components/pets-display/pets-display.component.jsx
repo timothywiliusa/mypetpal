@@ -82,7 +82,7 @@ class PetsDisplay extends Component {
 	render(){
 
 		const {nPets, pets } = this.state
-		if(this.state.nPets !== 0){
+		if(nPets !== 0){
 			return(
 				<div>
 					<div className="card-list">
