@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
-import { auth, firestore, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { auth, firestore, createUserProfileDocument, getUserDocumentReference } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
 //import firebase from 'firebase/app';
 
@@ -21,9 +21,34 @@ class SignUp extends Component {
             user: null
         };     
     }
-    
+    unsubscribeFromAuth = null
 
     componentDidMount = async e =>{
+		this.unsubscribeFromAuth = auth.onAuthStateChanged(
+			userAuth => {
+			  if(userAuth){
+				const userRef = getUserDocumentReference(userAuth);
+				console.log("userAuth",userAuth)
+				console.log("userRef",userRef)
+
+				userRef.onSnapshot(snapShot => {
+					console.log("snapshot", snapShot)
+				  this.setState({
+					currentUser: {
+					  id: snapShot.id,
+					  ...snapShot.data()
+					}
+				  },
+				  () => {
+					//logging current user from a snapshot of the database
+					console.log("state",this.state);
+				  });
+				});
+			  }
+	  
+			  this.setState({ currentUser: userAuth });
+			}
+		  );
     }
     
 
@@ -95,7 +120,7 @@ class SignUp extends Component {
                         name='displayName'
                         value={displayName}
                         handleChange={this.handleChange}
-                        label={'Display Name*'}
+                        label='Display Name*'
                         required
                     />
                     <FormInput
