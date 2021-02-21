@@ -15,8 +15,12 @@ import Friends from './pages/friends/friends.component';
 import Vets from './pages/vets/vets.component';
 import Dashboard from './pages/dashboard/dashboard.component';
 import Shop from './pages/shop/shop.component';
-import NewPet from './pages/new-pet/new-pet.component';
+
+import NewPet from './pages/new-pet/new-pet.component'
+import PetProfile from './pages/pet-profile/pet-profile.component'
+
 import UserProfile from './pages/userprofile/userprofile.component'
+
 
 class App extends Component {
   constructor(){
@@ -73,6 +77,7 @@ class App extends Component {
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/userprofile" component={UserProfile}/>
           <Route exact path="/pets/new-pet" component={NewPet} />
+          <Route path="/pet-profile" component={PetProfile} />
         </Switch>
       </div>
     );
