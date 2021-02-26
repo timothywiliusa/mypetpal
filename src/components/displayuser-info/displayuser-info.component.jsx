@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import {auth, getUserDocumentReference, getCurrentUser} from '../../firebase/firebase.utils';
 import {Route,Switch} from 'react-router-dom';
-import { Card, ListGroup} from "react-bootstrap";
+import { Card, Button, Form} from "react-bootstrap";
 
 class Userprofile extends Component {
 
@@ -69,6 +69,15 @@ class Userprofile extends Component {
                         <p>Phone Number: {this.state.currentUser != null ? this.state.currentUser.phoneNumber : null} </p>
                     </Card.Body>
                 </Card>
+				<Form>
+  					<Form.Group controlId="formBasicuid">
+    					<Form.Label>Type the user Id to view the Userprofile :</Form.Label>
+    					<Form.Control type="uid" placeholder="User Id" />
+					</Form.Group>
+					<Button variant="primary" type="submit">
+						Go!
+					</Button>
+				</Form>
 			</div>
 		)
 	}
