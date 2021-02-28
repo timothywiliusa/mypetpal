@@ -3,6 +3,7 @@ import { v4 as uuidv4} from 'uuid';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
+//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
 
 class AddFriend extends Component {
     constructor(){
