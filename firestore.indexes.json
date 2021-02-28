@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "friends",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name1",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name2",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
