@@ -7,16 +7,21 @@ import './view-friends.styles.scss';
 function ViewFriends({currentUser}){
     const [friends1, setFriends1] = useState([]);
     const [loading, setLoading] = useState(false);
-    //const [friends2, setFriends2] = useState([]);
+    const [friends2, setFriends2] = useState([]);
 
     useEffect(() =>{
+        const ref = firestore.collection('friends');
         function getFriends(){
             firebase.auth().onAuthStateChanged(function(user){
             if(user){
-                let ref = firestore.collection('users').doc(user.uid).collection('friends');
-                ref.get().then((item)=>{
+                ref.where('name1','==',user.email).get().then((item)=>{
                     const items = item.docs.map((doc)=>doc.data());
                     setFriends1(items);
+                    setLoading(false);
+                });
+                ref.where('name2','==',user.email).get().then((item)=>{
+                    const items = item.docs.map((doc)=>doc.data());
+                    setFriends2(items);
                     setLoading(false);
                 });
             }
@@ -35,7 +40,12 @@ function ViewFriends({currentUser}){
                 <h1>Friends</h1>
                 {friends1.map((friend) =>(
                     <div className='friend' key={friend.id}>
-                        <h2 style={{marginLeft:'1%'}} >{friend.email}</h2>
+                        <h2 style={{marginLeft:'1%'}} >{friend.name2}</h2>
+                    </div>
+                ))}
+                {friends2.map((friend) =>(
+                    <div className='friend' key={friend.id}>
+                        <h2 style={{marginLeft:'1%'}} >{friend.name1}</h2>
                     </div>
                 ))}
             </Fragment>

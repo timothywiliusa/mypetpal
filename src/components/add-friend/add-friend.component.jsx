@@ -3,7 +3,7 @@ import { v4 as uuidv4} from 'uuid';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
-//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
+
 
 class AddFriend extends Component {
     constructor(){
@@ -15,9 +15,7 @@ class AddFriend extends Component {
             user: null
         };     
     }
-    componentDidMount(){
 
-    }
 
     handleSubmit =  async e => {
         e.preventDefault();
@@ -27,6 +25,7 @@ class AddFriend extends Component {
         //const ref = firestore.collection('friends');
         // const ref1 =ref.where(friendEmail,'==',this.props.currentUser.email);
         // const ref2 =ref.where(this.props.currentUser.email,'==',friendEmail);
+
         // ref1.get().then((item)=>{
         //     const items = item.docs.map((doc)=>doc.data());
         //     console.log(items);
@@ -46,15 +45,18 @@ class AddFriend extends Component {
         console.log('making friends');
         try {
             let query = firestore.collection('users').where('email', '==', friendEmail).get();
+            
             query.then(querySnapshot => { if(!querySnapshot.empty){  
                 if(this.props.currentUser.email < friendEmail){
-                    firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(this.props.currentUser.email+friendEmail).set({
-                        email: friendEmail,
+                    firestore.collection('friends').doc(this.props.currentUser.email+friendEmail).set({
+                        name1: this.props.currentUser.email,
+                        name2: friendEmail,
                         id: uuidv4()
                     })
                 } else if(this.props.currentUser.email > friendEmail){
-                    firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(friendEmail+this.props.currentUser.email).set({
-                        email: friendEmail,
+                    firestore.collection('friends').doc(friendEmail+this.props.currentUser.email).set({
+                        name1: friendEmail,
+                        name2: this.props.currentUser.email,
                         id: uuidv4()
                     })
                 } else{

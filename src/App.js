@@ -3,6 +3,7 @@ import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
@@ -29,6 +30,7 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+
     //user authentication
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {
@@ -54,8 +56,6 @@ class App extends Component {
     );
   }
   
-  
-
   render(){
     return (
       <div>
