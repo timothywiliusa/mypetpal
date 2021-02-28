@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'react-phone-number-input/style.css'
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, firestore, createUserProfileDocument, getUserDocumentReference } from '../../firebase/firebase.utils';
