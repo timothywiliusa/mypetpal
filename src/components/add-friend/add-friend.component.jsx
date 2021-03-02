@@ -69,7 +69,7 @@ class AddFriend extends Component {
                     friendEmail: ''
                 })
             } else {
-                console.log('No user with that email!'); 
+                console.log('No user with that email!');
                 this.setState({
                     friendEmail: ''
                 })

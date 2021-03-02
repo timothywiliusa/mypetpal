@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { firestore } from '../../firebase/firebase.utils'
 import firebase from 'firebase/app';
+import {useParams} from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 import './view-friends.styles.scss';
 
@@ -29,6 +31,16 @@ function ViewFriends({currentUser}){
         }
         getFriends();        
     },[]);
+
+    let {id, uid1, uid2} = useParams(); 
+    if(id){
+        if(id === 'add-friend'){
+            firestore.collection('users').doc(uid2).collection('friends').doc().set({
+                id: id
+            })
+            return <Redirect to='/friends'/>
+        }
+    }
 
     if(loading){
         return<h1>loading..</h1>;
