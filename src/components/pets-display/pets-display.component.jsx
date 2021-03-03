@@ -1,11 +1,9 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference } from '../../firebase/firebase.utils'
+import {auth, getUserDocumentReference, firestore } from '../../firebase/firebase.utils'
 import './pets-display.styles.scss';
 
 
 import {Route,Switch} from 'react-router-dom'
-import { firestore } from 'firebase';
-
 import {Card} from '../card/card.component'
 
 
@@ -31,8 +29,8 @@ class PetsDisplay extends Component {
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(
 			userAuth => {
 			  if(userAuth){
-				const userRef = firestore().doc(`users/${userAuth.uid}`)
-				const petCollectionRef = firestore().collection(`users/${userAuth.uid}/pets`)
+				const userRef = firestore().doc(`users/${userAuth.uid}`);
+				const petCollectionRef = firestore().collection(`users/${userAuth.uid}/pets`);
 				
 
 				userRef.get().then((snapShot) => {
@@ -44,17 +42,17 @@ class PetsDisplay extends Component {
 						  ...snapShot.data()
 						}
 					  }
-					)
+					);
 					this.setState({
 						nPets: this.state.currentUser.nPets
-					})
+					});
 				})
 				
 				petCollectionRef.get().then((snapShot) => {
 					console.log("snapshot", snapShot)
 					this.setState({
 						pets: snapShot.docs.map((doc) => doc.data())
-					})
+					});
 					console.log(this.state)
 					
 				})
