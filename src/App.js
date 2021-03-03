@@ -78,7 +78,7 @@ class App extends Component {
           <Route exact path="/userprofile" component={UserProfile}/>
           <Route exact path="/pets/new-pet" component={NewPet} />
           <Route path="/pet-profile" component={PetProfile} />
-          <Route excat path="/userinfobyid" component = {Userinfobyid}/>
+          <Route excat path="/userinfobyid" component={Userinfobyid}/> 
         </Switch>
       </div>
     );
