@@ -1,7 +1,6 @@
 import React , {Component} from 'react';
 import {auth, getUserDocumentReference, getCurrentUser} from '../../firebase/firebase.utils';
-import {Route,Switch} from 'react-router-dom';
-import { Card, Button, Form} from "react-bootstrap";
+import { Card,Form,Button} from "react-bootstrap";
 
 class Userprofile extends Component {
 
@@ -9,8 +8,7 @@ class Userprofile extends Component {
 		super()
 		this.state = {
 			currentUser : null
-		}
-
+		};
 	}
 
 	unsubscribeFromAuth = null
@@ -42,11 +40,6 @@ class Userprofile extends Component {
 			  this.setState({ currentUser: userAuth });
 			}
 		  );
-
-		
-		
-		
-		
 	}
 		
 	
@@ -68,16 +61,7 @@ class Userprofile extends Component {
                         <p>Address: {this.state.currentUser != null ? this.state.currentUser.address : null} </p>
                         <p>Phone Number: {this.state.currentUser != null ? this.state.currentUser.phoneNumber : null} </p>
                     </Card.Body>
-                </Card>
-				<Form>
-  					<Form.Group controlId="formBasicuid">
-    					<Form.Label>Type the user Id to view the Userprofile :</Form.Label>
-    					<Form.Control type="uid" placeholder="User Id" />
-					</Form.Group>
-					<Button variant="primary" type="submit">
-						Go!
-					</Button>
-				</Form>
+				</Card>
 			</div>
 		)
 	}

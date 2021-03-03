@@ -25,6 +25,9 @@ const Navbar = ({currentUser}) => (
             <Link className="option" to="/userprofile">
                 USERPROFILE
             </Link>
+            <Link className="option" to ="/userinfobyid">
+                View Userinfo by Id
+            </Link>
             {
                 currentUser ?
                     <div className='option' onClick={() => auth.signOut()}>

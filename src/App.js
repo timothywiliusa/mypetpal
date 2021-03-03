@@ -20,7 +20,7 @@ import NewPet from './pages/new-pet/new-pet.component'
 import PetProfile from './pages/pet-profile/pet-profile.component'
 
 import UserProfile from './pages/userprofile/userprofile.component'
-
+import Userinfobyid from './pages/userinfobyid/userinfobyid.component'
 
 class App extends Component {
   constructor(){
@@ -78,6 +78,7 @@ class App extends Component {
           <Route exact path="/userprofile" component={UserProfile}/>
           <Route exact path="/pets/new-pet" component={NewPet} />
           <Route path="/pet-profile" component={PetProfile} />
+          <Route excat path="/userinfobyid" component = {Userinfobyid}/>
         </Switch>
       </div>
     );
