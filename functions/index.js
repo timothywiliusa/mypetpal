@@ -31,9 +31,10 @@ exports.firestoreEmail = functions.firestore.document('users/{userId}/friends/{f
             const msg = {
                 to: user.email,
                 from: 'frithp@oregonstate.edu',
-                subject: 'Sending with SendGrid is Fun',
-                text: 'and easy to do anywhere, even with Node.js',
-                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                subject: 'Add a new friend on My Pet Pal!',
+                body: 'localhost:3000/friends/add-friend/'+userId+'/'+friendId,
+                text: 'localhost:3000/friends/add-friend/'+userId+'/'+friendId,
+                html: '<strong>'+'localhost:3000/friends/add-friend/'+userId+'/'+friendId+'</strong>',
             };
             return sgMail.send(msg)
         })

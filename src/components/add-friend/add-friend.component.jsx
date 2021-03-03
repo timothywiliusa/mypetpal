@@ -50,12 +50,14 @@ class AddFriend extends Component {
                 if(this.props.currentUser.email < friendEmail){
                     firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(this.props.currentUser.email+friendEmail).set({
                         email: friendEmail,
-                        id: uuidv4()
+                        id: uuidv4(),
+                        accepted: false
                     })
                 } else if(this.props.currentUser.email > friendEmail){
                     firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(friendEmail+this.props.currentUser.email).set({
                         email: friendEmail,
-                        id: uuidv4()
+                        id: uuidv4(),
+                        accepted: false
                     })
                 } else{
                     console.log('That is you!!!');

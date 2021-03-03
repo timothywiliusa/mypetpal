@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { firestore } from '../../firebase/firebase.utils'
 import firebase from 'firebase/app';
+import { v4 as uuidv4} from 'uuid';
 import {useParams} from 'react-router';
 import { Redirect } from 'react-router-dom';
 
 import './view-friends.styles.scss';
 
 function ViewFriends({currentUser}){
+    // const [cUser, setCUser] = useState([]);
     const [friends1, setFriends1] = useState([]);
     const [loading, setLoading] = useState(false);
     //const [friends2, setFriends2] = useState([]);
@@ -15,7 +17,8 @@ function ViewFriends({currentUser}){
         function getFriends(){
             firebase.auth().onAuthStateChanged(function(user){
             if(user){
-                let ref = firestore.collection('users').doc(user.uid).collection('friends');
+                let ref = firestore.collection('users').doc(user.uid);
+                ref = ref.collection('friends').where('accepted', '==', true);
                 ref.get().then((item)=>{
                     const items = item.docs.map((doc)=>doc.data());
                     setFriends1(items);
@@ -27,14 +30,37 @@ function ViewFriends({currentUser}){
         getFriends();        
     },[]);
 
-    let {id, uid1, uid2} = useParams(); 
+    const {id, uid1, uid2} = useParams(); 
     if(id){
-        if(id === 'add-friend'){
-            firestore.collection('users').doc(uid2).collection('friends').doc().set({
-                id: id
-            })
-            return <Redirect to='/friends'/>
-        }
+        firebase.auth().onAuthStateChanged(function(user){
+            if(id === 'add-friend' && uid2 === user.id){
+                const ref = firestore.collection('users').doc(uid1).get();
+                ref.then((doc)=>{
+                    const docRef = doc.data();
+                        console.log(docRef.email);
+                        if(docRef.email < user.email){
+                            firestore.collection('users').doc(uid2).collection('friends').doc(docRef.email + user.email).set({
+                                email: docRef.email,
+                                id: uuidv4(),
+                                accepted: true
+                            })
+                            firestore.collection('users').doc(uid1).collection('friends').doc(docRef.email + user.email).set({
+                                accepted: true
+                            })
+                        } else{
+                            firestore.collection('users').doc(uid2).collection('friends').doc(user.email + docRef.email).set({
+                                email: docRef.email,
+                                id: uuidv4(),
+                                accepted: true
+                            })
+                            firestore.collection('users').doc(uid1).collection('friends').doc(user.email + docRef.email).set({
+                                accepted: true
+                            })
+                        }
+                });
+            }
+        })
+        return <Redirect to='/friends'/>
     }
 
     if(loading){
