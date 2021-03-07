@@ -51,24 +51,18 @@ class AddFriend extends Component {
             query.then(function(querySnapshot){
                 querySnapshot.forEach(function(doc){ if(!querySnapshot.empty){  
                 console.log(doc.id);
-                if(that.props.currentUser.email < friendEmail){
+                
                     firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
                         email: friendEmail,
                         id: uuidv4(),
                         accepted: false
                     })
-                } else if(this.props.currentUser.email > friendEmail){
-                    firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
-                        email: friendEmail,
-                        id: uuidv4(),
-                        accepted: false
-                    })
-                } else{
-                    console.log('That is you!!!');
-                    that.setState({
-                        friendEmail: ''
-                    })
-                }
+                // } else{
+                //     console.log('That is you!!!');
+                //     that.setState({
+                //         friendEmail: ''
+                //     })
+                // }
                 that.setState({
                     friendEmail: ''
                 })
