@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Card, ListGroup} from "react-bootstrap"
+import React from "react"
+import { Card } from "react-bootstrap"
 import firebase from 'firebase/app';
 import './userprofile.styles.scss';
 
