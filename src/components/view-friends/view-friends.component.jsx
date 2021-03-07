@@ -34,38 +34,43 @@ function ViewFriends({currentUser}){
         getFriends();        
     },[]);
 
-    const {id, uid1, uid2} = useParams(); 
-    if(id){
-        firebase.auth().onAuthStateChanged(function(user){
-            if(id === 'add-friend' && uid2 === user.id){
-                const ref = firestore.collection('users').doc(uid1).get();
-                ref.then((doc)=>{
-                    const docRef = doc.data();
-                        console.log(docRef.email);
-                        if(docRef.email < user.email){
-                            firestore.collection('users').doc(uid2).collection('friends').doc(docRef.email + user.email).set({
-                                email: docRef.email,
-                                id: uuidv4(),
-                                accepted: true
-                            })
-                            firestore.collection('users').doc(uid1).collection('friends').doc(docRef.email + user.email).set({
-                                accepted: true
-                            })
-                        } else{
-                            firestore.collection('users').doc(uid2).collection('friends').doc(user.email + docRef.email).set({
-                                email: docRef.email,
-                                id: uuidv4(),
-                                accepted: true
-                            })
-                            firestore.collection('users').doc(uid1).collection('friends').doc(user.email + docRef.email).set({
-                                accepted: true
-                            })
-                        }
-                });
-            }
-        })
+    function acceptFriend(){
+        // if(currentUser){
+        //     if(id === 'add-friend' && uid2 === currentUser.id){
+        //         console.log('hey');
+        //         const ref = firestore.collection('users').doc(uid1).get();
+        //         ref.then((doc)=>{
+        //             const docRef = doc.data();
+        //                 console.log(docRef.id);
+        //                 if(docRef.email < user.email){
+        //                     firestore.collection('users').doc(uid2).collection('friends').doc(docRef.id).set({
+        //                         email: docRef.email,
+        //                         id: uuidv4(),
+        //                         accepted: true
+        //                     })
+        //                     firestore.collection('users').doc(uid1).collection('friends').doc(docRef.id).set({
+        //                         accepted: true
+        //                     })
+        //                 } else{
+        //                     firestore.collection('users').doc(uid2).collection('friends').doc(docRef.id).set({
+        //                         email: docRef.email,
+        //                         id: uuidv4(),
+        //                         accepted: true
+        //                     })
+        //                     firestore.collection('users').doc(uid1).collection('friends').doc(docRef.id).set({
+        //                         accepted: true
+        //                     })
+        //                 }
+        //         });
+        //     }
+        // }
+        console.log(uid1, uid2);
         return <Redirect to='/friends'/>
+        console.log(uid1, uid2, 'sss');
     }
+    const {id, uid1, uid2} = useParams();
+    if(id){acceptFriend()};
+
 
     if(loading){
         return<h1>loading..</h1>;

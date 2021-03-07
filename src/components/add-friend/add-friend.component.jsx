@@ -8,8 +8,8 @@ import './add-friend.styles.scss';
 //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
 
 class AddFriend extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             displayName: '',
             friendEmail: '',
@@ -23,9 +23,9 @@ class AddFriend extends Component {
 
     handleSubmit =  async e => {
         e.preventDefault();
-
+        
         const { friendEmail } = this.state;
-
+        var that = this;
         //const ref = firestore.collection('friends');
         // const ref1 =ref.where(friendEmail,'==',this.props.currentUser.email);
         // const ref2 =ref.where(this.props.currentUser.email,'==',friendEmail);
@@ -48,26 +48,28 @@ class AddFriend extends Component {
         console.log('making friends');
         try {
             let query = firestore.collection('users').where('email', '==', friendEmail).get();
-            query.then(querySnapshot => { if(!querySnapshot.empty){  
-                if(this.props.currentUser.email < friendEmail){
-                    firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(this.props.currentUser.email+friendEmail).set({
+            query.then(function(querySnapshot){
+                querySnapshot.forEach(function(doc){ if(!querySnapshot.empty){  
+                console.log(doc.id);
+                if(that.props.currentUser.email < friendEmail){
+                    firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
                         email: friendEmail,
                         id: uuidv4(),
                         accepted: false
                     })
                 } else if(this.props.currentUser.email > friendEmail){
-                    firestore.collection('users').doc(this.props.currentUser.id).collection('friends').doc(friendEmail+this.props.currentUser.email).set({
+                    firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
                         email: friendEmail,
                         id: uuidv4(),
                         accepted: false
                     })
                 } else{
                     console.log('That is you!!!');
-                    this.setState({
+                    that.setState({
                         friendEmail: ''
                     })
                 }
-                this.setState({
+                that.setState({
                     friendEmail: ''
                 })
             } else {
@@ -76,6 +78,7 @@ class AddFriend extends Component {
                     friendEmail: ''
                 })
             }});
+        })
         } catch(error) {
             console.error(error);
         }
