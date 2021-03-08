@@ -1,10 +1,9 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference } from '../../firebase/firebase.utils'
+import {auth, getUserDocumentReference, firestore } from '../../firebase/firebase.utils'
 import './pets-display.styles.scss';
 
 
 import {Route,Switch} from 'react-router-dom'
-import { firestore } from 'firebase';
 
 import {Card} from '../card/card.component'
 
