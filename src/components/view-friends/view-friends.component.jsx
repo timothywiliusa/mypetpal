@@ -49,8 +49,10 @@ function ViewFriends({currentUser}){
                             id: uuidv4(),
                             accepted: true
                         })
-                        firestore.collection('users').doc(uid1).collection('friends').doc(doc.id).set({
-                            accepted: true
+                        firestore.collection('users').doc(uid1).collection('friends').doc(uid2).set({
+                            accepted: true,
+                            email: user.email,
+                            id: uuidv4()
                         })
                     });
                 }
