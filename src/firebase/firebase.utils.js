@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+
 const config = {
     apiKey: "AIzaSyCVWBlIaPzVDMCNbhJPKnUCy1kOUyrtuHw",
     authDomain: "my-pet-pal-94791.firebaseapp.com",
@@ -39,6 +40,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 }
 
+
 export const getUserProfileDocument = async (userAuth) => {
     if(!userAuth) return;
 
@@ -70,6 +72,7 @@ var app = firebase.initializeApp(config);
 // storing the user data in the front end
 export const auth = firebase.auth();
 export const firestore = firebase.firestore(app);
+
 
 // sign in with google method
 const provider = new firebase.auth.GoogleAuthProvider();

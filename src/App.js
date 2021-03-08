@@ -3,7 +3,6 @@ import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
@@ -15,11 +14,8 @@ import Friends from './pages/friends/friends.component';
 import Vets from './pages/vets/vets.component';
 import Dashboard from './pages/dashboard/dashboard.component';
 import Shop from './pages/shop/shop.component';
-
-import NewPet from './pages/new-pet/new-pet.component'
-import PetProfile from './pages/pet-profile/pet-profile.component'
-
-import UserProfile from './pages/userprofile/userprofile.component'
+import NewPet from './pages/new-pet/new-pet.component';
+import Userprofile from './pages/userprofile/userprofile.component';
 
 
 class App extends Component {
@@ -34,7 +30,6 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-
     //user authentication
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {
@@ -60,6 +55,8 @@ class App extends Component {
     );
   }
   
+  
+
   render(){
     return (
       <div>
@@ -71,13 +68,12 @@ class App extends Component {
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets} />
-          <Route exact path="/friends" render={(props)=><Friends currentUser={this.state.currentUser}/>} />
+          <Route exact path="/userprofile" component={Userprofile} />
+          <Route exact path="/friends/:id?/:uid1?/:uid2?" render={(props)=><Friends currentUser={this.state.currentUser}/>} />
           <Route exact path="/vets" component={Vets} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/shop" component={Shop} />
-          <Route exact path="/userprofile" component={UserProfile}/>
           <Route exact path="/pets/new-pet" component={NewPet} />
-          <Route path="/pet-profile" component={PetProfile} />
         </Switch>
       </div>
     );

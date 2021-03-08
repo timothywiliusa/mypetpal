@@ -1,0 +1,43 @@
+.friends-holder{
+    height: 100%;
+    //border: 5px solid black;
+    .friends-list{
+        orientation: horizontal;
+        width: 30%;
+        height: 500px;
+        //border: 5px solid black;
+        float:left; 
+        display:inline;
+        white-space: nowrap;
+        .friend{
+            border: 1px solid black;
+            height: 10%;
+            white-space:nowrap;
+            .email{
+                border: 2px solid black;
+                float:left; 
+                display:inline;
+                width:80%;
+                font-weight: bold;
+                font-size: 25px;
+                padding: auto;
+                margin-top: 1%;
+                white-space:nowrap;
+            }
+            .toggle{
+                border: 2px solid black;
+                float:left; 
+                display:inline;
+                height:50%;
+                margin-top:3%;
+                white-space:nowrap;
+            }
+        }
+        
+    }
+    .chat{
+        border: 2px solid black;
+        float:left; 
+        display:inline;
+    }
+}
