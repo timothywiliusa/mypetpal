@@ -35,15 +35,19 @@ class App extends Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {
         if(userAuth){
-          const userRef = getUserDocumentReference(userAuth);
 
-          userRef.onSnapshot(snapShot => {
-            console.log(snapShot)
-            setCurrentUser({
-                id: snapShot.id,
-                ...snapShot.data()
-            });
-          });
+          setCurrentUser(userAuth);
+
+
+          // const userRef = getUserDocumentReference(userAuth);
+
+          // userRef.onSnapshot(snapShot => {
+          //   console.log(snapShot)
+          //   setCurrentUser({
+          //       id: snapShot.id,
+          //       ...snapShot.data()
+          //   });
+          // });
         }
       }
     );
@@ -72,7 +76,7 @@ class App extends Component {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/shop" component={Shop} />
           <Route exact path="/userprofile" component={UserProfile}/>
-          <Route exact path="/pets/new-pet" component={NewPet} />
+          <Route path="/pets/new-pet" component={NewPet} />
           <Route path="/pet-profile" component={PetProfile} />
         </Switch>
       </div>
