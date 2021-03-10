@@ -1,6 +1,9 @@
 .friends-holder{
     height: 100%;
-    //border: 5px solid black;
+
+    .header{
+        width: 20%;
+    }
     .friends-list{
         orientation: horizontal;
         width: 30%;
@@ -38,5 +41,17 @@
         float:left; 
         display:inline;
         width:25%;
+        margin-top: -8%;
+        .email{
+            border: 2px solid black;
+            border-radius: 21px 21px 0 0;
+            background: rgb(90, 90, 90);
+            color: white;
+            text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+            font-weight:1000;
+            font-size: 30px;
+            padding: 10px 0 20px 0px;
+            text-align: center;
+        }
     }
 }

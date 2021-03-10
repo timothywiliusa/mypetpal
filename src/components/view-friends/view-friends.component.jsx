@@ -81,7 +81,7 @@ function ViewFriends({currentUser}){
     if(currentUser){
         return (
             <div className='friends-holder'>
-                <h1>Friends</h1>
+                <h1 className='header'>Friends</h1>
                 <div className='friends-list'>
                 {friends1.map((friend) =>(
                     <div className='friend' key={friend.email}>
@@ -92,7 +92,10 @@ function ViewFriends({currentUser}){
                 </div>
                 {chat && (
                     <div className='chat'>
-                        <FriendChat chatReference={query}/>
+                        <div className='email'>{friend}</div>
+                        <div className='friend-chat'>
+                            <FriendChat chatReference={query}/>
+                        </div>
                     </div>
                 )}
             </div>

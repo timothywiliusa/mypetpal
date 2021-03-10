@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import firebase from 'firebase/app';
 import './friend-chat.styles.scss';
 import { v4 as uuidv4} from 'uuid';
@@ -6,13 +6,15 @@ import { v4 as uuidv4} from 'uuid';
 function FriendChat({chatReference}){
     const [chat, setChat] = useState([]);
     const [formValue, setFormValue] = useState('');
+    const [scroll,setScroll] = useState(true);
+    const dummy = useRef();
+    const silly = useRef();
     const orderedChat = chatReference.orderBy("createdAt");
     orderedChat.get().then((item)=>{
         const items = item.docs.map((doc)=>doc.data());
         //console.log(items);
         setChat(items);
     })
-    
 
     const sendMessage = async(e) =>{
         e.preventDefault();
@@ -27,16 +29,32 @@ function FriendChat({chatReference}){
             });
         }
         setFormValue('');
+        dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
+
+    const ScrollToBottom = () =>{
+        if(silly){
+        if(dummy.current){
+            dummy.current.scrollIntoView({ behavior: 'smooth' });
+            setScroll(false);
+            return<div/>
+        }
+        }
+        return<div/>
+    }
+    
     return(
         <>
-            <div >
+            <div className='msgs'>
                 {chatReference && chat.map(msg => <ChatMessage key={msg.id} message={msg} msgid={msg.id}/>)}
+                <span ref={dummy}></span>
+                {scroll ? <ScrollToBottom/> : null}
             </div>
             <form className="send" onSubmit={sendMessage}>
                 <input value={formValue} onChange={(e)=> setFormValue(e.target.value)}></input>
                 <button type="submit">send</button>
             </form>
+            <span ref={silly}/>
         </>
     )
 }

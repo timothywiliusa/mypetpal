@@ -5,7 +5,6 @@ import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
 import './add-friend.styles.scss';
 
-//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
 
 class AddFriend extends Component {
     constructor(props){
@@ -51,28 +50,29 @@ class AddFriend extends Component {
             query.then(function(querySnapshot){
                 querySnapshot.forEach(function(doc){ if(!querySnapshot.empty){  
                 console.log(doc.id);
-                
-                    firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
-                        email: friendEmail,
-                        id: uuidv4(),
-                        accepted: false
+                    if(friendEmail === that.props.currentUser.email){
+                        console.log('that is you');
+                        that.setState({
+                            friendEmail: ''
+                        })
+                    } else{
+                        firestore.collection('users').doc(that.props.currentUser.id).collection('friends').doc(doc.id).set({
+                            email: friendEmail,
+                            id: uuidv4(),
+                            accepted: false
+                        })
+                    
+                        that.setState({
+                            friendEmail: ''
+                        })
+                    }
+                } else {
+                    console.log('No user with that email!');
+                    this.setState({
+                    friendEmail: ''
                     })
-                // } else{
-                //     console.log('That is you!!!');
-                //     that.setState({
-                //         friendEmail: ''
-                //     })
-                // }
-                that.setState({
-                    friendEmail: ''
-                })
-            } else {
-                console.log('No user with that email!');
-                this.setState({
-                    friendEmail: ''
-                })
-            }});
-        })
+                }});
+            })
         } catch(error) {
             console.error(error);
         }
