@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './directory.styles.scss';
 import MenuItem from '../menu-item/menu-item.component';
 
-
 class Directory extends Component {
 	constructor() {
 		super();
@@ -11,32 +10,32 @@ class Directory extends Component {
 				{
 					id: 1,
 					title: 'pets',
-					imageUrl: 'https://i.ibb.co/FWz9XjM/MY-PETS.jpg',
+					imageUrl: 'https://www.linkpicture.com/q/MY-PETS.jpg',
 					linkUrl: 'pets'
 				},
 				{
 					id: 2,
 					title: 'friends',
-					imageUrl: 'https://i.ibb.co/r44Znt3/FRIENDS.jpg',
+					imageUrl: 'https://www.linkpicture.com/q/FRIENDS.jpg',
 					linkUrl: 'friends'
 				},
 				{
 					id: 3,
 					title: 'vets',
-					imageUrl: 'https://i.ibb.co/MMR4Jfq/VETS.jpg',
+					imageUrl: 'https://www.linkpicture.com/q/VETS.jpg',
 					linkUrl: 'vets'
 				},
 				{
 					id: 4,
 					title: 'dash board',
-					imageUrl: 'https://i.ibb.co/JcqH4yW/DASH.png',
+					imageUrl: 'https://www.linkpicture.com/q/DASH.png',
 					linkUrl: 'dashboard',
 					size: 'large'
 				},
 				{
 					id: 5,
 					title: 'shop',
-					imageUrl: 'https://i.ibb.co/b3QW5c2/hd3demdpraa31.png',
+					imageUrl: 'https://www.linkpicture.com/q/dog-swords.jpg',
 					linkUrl: 'shop',
 					size: 'large'
 				}
