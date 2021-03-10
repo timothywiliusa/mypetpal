@@ -1,4 +1,5 @@
- import React, { Component } from 'react';
+
+import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input-component';
 import { Link } from 'react-router-dom';
@@ -35,6 +36,7 @@ class SignIn extends Component {
 
 		this.setState({ [name]: value });
 	};
+
 
 	render() {
 		return (

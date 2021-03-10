@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import FormInput from '../form-input/form-input-component';
-import { auth, firestore} from '../../firebase/firebase.utils';
-import {params} from 'react-router';
-
+import { firestore} from '../../firebase/firebase.utils';
 
 
 class Userinfobyid extends Component{
@@ -17,9 +14,10 @@ class Userinfobyid extends Component{
 
     unsubscribeFromAuth = null
 
+    
     // componentDidMount() {
     //     const {id} = this.props.match.params.id
-    //     var query = firestore.collection('users').doc(id).get();
+    //     var query = firestore.collection('users').doc(this.props.match.params.id).get();
     //     query.then((doc)=>{
     //         if(doc.exists){
     //             this.setState({displayName: doc.data().displayName});
@@ -41,22 +39,30 @@ class Userinfobyid extends Component{
     handlePost = () =>{
         const {inputValue} = this.state;
         console.log (inputValue, "-----userid")
-        var query = firestore.collection('users').doc(this.state.inputValue).get();
-        query.then((doc)=>{
-            if(doc.exists){
-                this.setState({displayName: doc.data().displayName});
-                this.setState({email: doc.data().email});
-                this.setState({firstname: doc.data().firstName});
-                this.setState({phone: doc.data().phoneNumber});
-                this.setState({address: doc.data().address});
+        if(this.state.inputValue !== ''){
+            var query = firestore.collection('users').doc(this.state.inputValue).get();
+            query.then((doc)=>{
+                if(doc.exists){
+                    this.setState({displayName: doc.data().displayName});
+                    this.setState({email: doc.data().email});
+                    this.setState({firstname: doc.data().firstName});
+                    this.setState({phone: doc.data().phoneNumber});
+                    this.setState({address: doc.data().address});
+            }
+            })
         }
-        })
+        else{
+            console.log('Wrong Input');
+            this.setState({
+                inputValue:''
+            })
+        }
     }
 
 
 
 
-    render(props){
+    render(){
         return(
             <div>
                 <input
