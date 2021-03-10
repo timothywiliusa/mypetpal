@@ -10,11 +10,9 @@
         display:inline;
         white-space: nowrap;
         .friend{
-            border: 1px solid black;
             height: 10%;
             white-space:nowrap;
             .email{
-                border: 2px solid black;
                 float:left; 
                 display:inline;
                 width:80%;
@@ -25,7 +23,6 @@
                 white-space:nowrap;
             }
             .toggle{
-                border: 2px solid black;
                 float:left; 
                 display:inline;
                 height:50%;
@@ -37,7 +34,9 @@
     }
     .chat{
         border: 2px solid black;
+        border-radius: 25px;
         float:left; 
         display:inline;
+        width:25%;
     }
 }

@@ -1,0 +1,29 @@
+.send{
+    margin-left:25%;
+    margin-top: 2%;
+    margin-bottom:1%;
+}
+.ch{
+    margin-top: 1%;
+    width:100%;
+    .sent {
+        align-self: right;
+    }
+    .sent div{
+        border-radius: 15px;
+        width:30%;
+        left:0px;
+        background:lightgray;
+        text-align: center;
+        margin-left:64%;
+        padding:1.5%;
+    }
+    .received div{
+        border-radius: 15px;
+        background:darkgray;
+        width:30%;
+        margin-left:2%;
+        padding: 1.5%;
+        text-align:center;
+    }
+}

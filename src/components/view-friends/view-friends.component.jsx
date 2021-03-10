@@ -91,7 +91,9 @@ function ViewFriends({currentUser}){
                 ))}
                 </div>
                 {chat && (
-                    <div className='chat'><FriendChat chatReference={query}/></div>
+                    <div className='chat'>
+                        <FriendChat chatReference={query}/>
+                    </div>
                 )}
             </div>
         );
