@@ -110,7 +110,7 @@ function ViewReminders(){
     // },[]);
     firebase.auth().onAuthStateChanged(function(user){
         if(user){
-        firestore.collection('users').doc(user.uid).collection('reminders').get().then((item)=>{
+        firestore.collection('users').doc(user.uid).collection('reminders').orderBy('dateTime').get().then((item)=>{
             const items = item.docs.map((doc)=>doc.data());
             //console.log(items);
             setReminders(items);
