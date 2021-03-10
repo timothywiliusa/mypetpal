@@ -1,6 +1,10 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference } from '../../firebase/firebase.utils'
+import {auth, getUserDocumentReference, firestore } from '../../firebase/firebase.utils'
 import './pets-display.styles.scss';
+
+
+import {Route,Switch} from 'react-router-dom'
+import {Card} from '../card/card.component'
 
 
 
@@ -53,12 +57,32 @@ class PetsDisplay extends Component {
 
 	render(){
 
-	
-		return(
-			<div>
-				{this.state.currentUser != null ? <h1>{this.state.currentUser.displayName}</h1> : null}
-			</div>
-		)
+
+		const {nPets, pets } = this.state
+		if(nPets !== 0){
+			return(
+				<div>
+					<div className="card-list">
+						{pets.map((pet) => (
+							<Card 
+								key={pet.id} 
+								id={pet.id}
+								petName={pet.petName}
+								photoUrl={pet.photoUrl}
+							/>
+						))} 
+					</div>
+				</div>
+			)
+		}
+		else {
+			return(
+				<div>
+					Nothing to display
+				</div>
+			)
+		}	
+
 	}
 }
 
