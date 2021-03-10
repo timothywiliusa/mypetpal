@@ -4,6 +4,7 @@ import 'firebase/auth';
 import 'firebase/storage';
 import {generatePushID} from './pushid-generator'
 
+
 const config = {
     apiKey: "AIzaSyCVWBlIaPzVDMCNbhJPKnUCy1kOUyrtuHw",
     authDomain: "my-pet-pal-94791.firebaseapp.com",
@@ -61,6 +62,7 @@ var app = firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore(app);
 export const storage = firebase.storage();
+
 
 // sign in with google method
 const provider = new firebase.auth.GoogleAuthProvider();
