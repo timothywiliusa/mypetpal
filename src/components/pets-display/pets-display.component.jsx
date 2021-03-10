@@ -59,7 +59,7 @@ class PetsDisplay extends Component {
 
 
 		const {nPets, pets } = this.state
-		if(nPets !== 0){
+		if(nPets){
 			return(
 				<div>
 					<div className="card-list">

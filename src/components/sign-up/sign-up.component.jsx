@@ -75,7 +75,8 @@ class SignUp extends Component {
                 firstName: '',
                 lastName: '',
                 address: '',
-                phoneNumber: ''
+                phoneNumber: '',
+                nPets: null
             })
         } catch(error) {
             console.error(error);
