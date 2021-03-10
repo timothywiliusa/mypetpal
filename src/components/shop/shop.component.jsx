@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper, GoogleMapReact } from "react-google-maps";
+import { Map, InfoWindow, Marker, GoogleApiWrapper, GoogleMapReact } from "google-maps-react";
 import { Button, Form, FormLabel } from 'react-bootstrap';
 import FormInput from '../form-input/form-input-component';
 
@@ -68,5 +68,5 @@ class Shop extends Component{
     }
 }
 export default GoogleApiWrapper({
-    apiKey: {"AIzaSyDSi_YqdZ8R7Z9NMgphl-5xx9SQ-ejQsKE"}
+    apiKey: ("AIzaSyDSi_YqdZ8R7Z9NMgphl-5xx9SQ-ejQsKE")
 })(Shop)
