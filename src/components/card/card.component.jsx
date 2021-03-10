@@ -7,12 +7,9 @@ import CustomButton from '../custom-button/custom-button.component'
 
 export const Card = (props) => (
 	<div className="card-container">
-		{/* <img src={`${props.photo.url}`} /> */}
-		<p>{props.id}</p>
-		<p>pet profile photo</p>
-		<p>{props.name}</p>
+		<img className="img" alt="petImage" src={`${props.photoUrl}`} />
 		<Link to={`/pet-profile/${props.id}`} >
-			<CustomButton type='button'>Check me out!</CustomButton>
+			<CustomButton type='button'>Check out {props.petName}!</CustomButton>
 		</Link>
 	</div>
 );

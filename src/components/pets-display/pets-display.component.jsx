@@ -93,7 +93,8 @@ class PetsDisplay extends Component {
 							<Card 
 								key={pet.id} 
 								id={pet.id}
-								name={pet.name}
+								petName={pet.petName}
+								photoUrl={pet.photoUrl}
 							/>
 						))} 
 					</div>
