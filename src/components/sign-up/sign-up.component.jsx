@@ -76,10 +76,6 @@ class SignUp extends Component {
                 address: '',
                 phoneNumber: ''
             })
-            
-            firestore.collection('friends').doc(user.uid).add({
-                name: "name"
-            })
         } catch(error) {
             console.error(error);
         }
