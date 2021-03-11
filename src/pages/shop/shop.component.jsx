@@ -1,12 +1,9 @@
 import React from 'react';
-import './shop.styles.scss';
+import Shop from '../../components/shop/shop.component';
 
-const Shop = () => (
-	<div>
-		<h2>
-            Shop page
-        </h2>
+const shop = () => (
+	<div className="signup">
+		<Shop/>
 	</div>
 );
-
-export default Shop;
+export default shop;

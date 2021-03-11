@@ -10,35 +10,36 @@ class Directory extends Component {
 				{
 					id: 1,
 					title: 'pets',
-					imageUrl: 'https://www.linkpicture.com/q/MY-PETS.jpg',
+					imageUrl: 'https://i.ibb.co/FWz9XjM/MY-PETS.jpg',
 					linkUrl: 'pets'
 				},
 				{
 					id: 2,
 					title: 'friends',
-					imageUrl: 'https://www.linkpicture.com/q/FRIENDS.jpg',
+					imageUrl: 'https://i.ibb.co/r44Znt3/FRIENDS.jpg',
 					linkUrl: 'friends'
 				},
 				{
 					id: 3,
 					title: 'vets',
-					imageUrl: 'https://www.linkpicture.com/q/VETS.jpg',
+					imageUrl: 'https://i.ibb.co/MMR4Jfq/VETS.jpg',
 					linkUrl: 'vets'
 				},
 				{
 					id: 4,
 					title: 'dash board',
-					imageUrl: 'https://www.linkpicture.com/q/DASH.png',
+					imageUrl: 'https://i.ibb.co/JcqH4yW/DASH.png',
 					linkUrl: 'dashboard',
 					size: 'large'
 				},
 				{
 					id: 5,
 					title: 'shop',
-					imageUrl: 'https://www.linkpicture.com/q/dog-swords.jpg',
+					imageUrl: 'https://i.ibb.co/b3QW5c2/hd3demdpraa31.png',
 					linkUrl: 'shop',
 					size: 'large'
 				}
+	
 			]
 		};
 	}
