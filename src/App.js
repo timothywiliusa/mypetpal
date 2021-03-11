@@ -21,8 +21,10 @@ import PetProfile from './pages/pet-profile/pet-profile.component'
 
 import UserProfile from './pages/userprofile/userprofile.component'
 
+import Userinfobyid from './pages/userinfobyid/userinfobyid.component'
 import { auth, getUserDocumentReference } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions'
+
 
 class App extends Component {
  
@@ -78,6 +80,7 @@ class App extends Component {
           <Route exact path="/userprofile" component={UserProfile}/>
           <Route path="/pets/new-pet" component={NewPet} />
           <Route path="/pet-profile" component={PetProfile} />
+          <Route excat path="/userinfobyid" component={Userinfobyid}/> {/*render = {({props, match}) => (<Userinfobyid userId = {this.state.id} match = {match} />)}  />  */}
         </Switch>
       </div>
     );
