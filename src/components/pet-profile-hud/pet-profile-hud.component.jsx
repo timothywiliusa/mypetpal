@@ -38,7 +38,7 @@ class PetProfileHUD extends Component {
         
         this.getID().then((id) =>{
             this.setState({petID: id})
-            const documentRef = firestore().doc(`pets/${this.state.petID}`);
+            const documentRef = firestore.doc(`pets/${this.state.petID}`);
       
             documentRef.onSnapshot(snapShot => {
     
@@ -73,7 +73,7 @@ class PetProfileHUD extends Component {
                 <p>Age: {age}</p>
                 <p>Sex: {sex}</p>
                 <p>Weight: {weight}</p>
-                <p>Neutered: {neutered === true ? "yes" : "no"}</p>
+                <p>Neutered: {neutered}</p>
                 <p>Main Owner: {mainOwner}</p>
                 
                 <CustomButton>Export Pet Information</CustomButton>
