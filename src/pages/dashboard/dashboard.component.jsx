@@ -1,12 +1,12 @@
 import React from 'react';
 import './dashboard.styles.scss';
+import Dashboard from '../../components/dashboard/dashboard.component';
 
-const Dash = () => (
+
+const dash = () => (
 	<div>
-		<h2>
-            User's dashboard
-        </h2>
+		<Dashboard/>
 	</div>
 );
 
-export default Dash;
+export default dash;
