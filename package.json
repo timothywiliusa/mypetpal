@@ -24,6 +24,7 @@
     "react-hook-form": "^6.15.1",
     "react-phone-number-input": "^3.1.15",
     "react-bootstrap": "^1.5.1",
+    "react-datetime-picker": "^3.2.0",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.15.1",

@@ -1,0 +1,47 @@
+.send{
+    margin-left:25%;
+    margin-top: 2%;
+    margin-bottom:1%;
+}
+.msgs{
+    border: 1px solid black;
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+    display:flex;
+    width:100%;
+    flex-direction: column;
+}
+.ch{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width:100%;
+    height: 10%;
+    font-weight: bold;
+    font-size: 18px;
+
+    .sent {
+        align-self: right;
+        width:100%;
+    }
+    .received {
+        width:100%;
+    }
+    .sent div{
+        border-radius: 15px;
+        width:30%;
+        left:0px;
+        background:lightgray;
+        text-align: center;
+        margin-left:64%;
+        padding:1.5%;
+    }
+    .received div{
+        border-radius: 15px;
+        background:darkgray;
+        width:30%;
+        margin-left:2%;
+        padding: 1.5%;
+        text-align:center;
+    }
+}
