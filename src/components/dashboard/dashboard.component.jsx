@@ -55,7 +55,7 @@ class Dashboard extends Component {
         const { reminder, dateTime } = this.state; 
         return(
             <div className='add-reminder'>
-                <h2 className='title'>Add a Friend</h2>
+                <h2 className='title'>Create a Reminder</h2>
                 <form className='add-reminder-form' onSubmit={this.handleSubmit}>
                     <FormInput
                         type='text'
@@ -127,7 +127,7 @@ function ViewReminders(){
     if(firebase.auth().currentUser){
         return (
             <div className='friends-holder'>
-                <h1 className='header'>Friends</h1>
+                <h1 className='header'>Reminders</h1>
                 <div className='friends-list'>
                 {reminders.map((reminder) =>(
                     <div className='friend' key={reminder.id}>

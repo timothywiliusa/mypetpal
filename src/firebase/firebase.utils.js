@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
+import {generatePushID} from './pushid-generator'
 
 
 const config = {
@@ -21,8 +23,10 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     // initialize a doc with the user id
     const userRef = firestore.doc(`users/${userAuth.uid}`);
     
-    // check if the user exists
+    //get a snapshot of reference
     const snapShot = await userRef.get();
+
+    // check if the user exists
     if(!snapShot.exists) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
@@ -40,8 +44,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userRef;
 }
 
-
-export const getUserProfileDocument = async (userAuth) => {
+export const getUserProfileSnapshot = async (userAuth) => {
     if(!userAuth) return;
 
     // initialize a doc with the user id
@@ -49,21 +52,7 @@ export const getUserProfileDocument = async (userAuth) => {
     
     // check if the user exists
     const snapShot = await userRef.get();
-    if(!snapShot.exists) {
-        // const { displayName, email } = userAuth;
-        // const createdAt = new Date();
-        // try {
-        // //    await userRef.set({
-        // //        displayName,
-        // //        email,
-        // //        createdAt,
-        // //        ...additionalData
-        // //    }); 
-        // } catch(error) {
-        //     console.log('user creation error', error.message)
-        // }
-        return;
-    }
+    
     return snapShot;
 }
 
@@ -72,6 +61,7 @@ var app = firebase.initializeApp(config);
 // storing the user data in the front end
 export const auth = firebase.auth();
 export const firestore = firebase.firestore(app);
+export const storage = firebase.storage();
 
 
 // sign in with google method
@@ -100,4 +90,69 @@ export const getUserDocumentReference = (userAuth) => {
     //const snapShot = await userRef.get();
    
     return userRef;
+}
+
+export const createPetProfileDocument = async (userAuth, additionalData) => {
+    if(!userAuth) return;
+
+    // console.log("create pet profile")
+
+    const id = generatePushID()
+    // initialize a doc with the user id
+    const petRef = firestore.doc(`pets/${id}`);
+    
+
+    //get a snapshot of reference
+    const petSnapShot = await petRef.get();
+
+
+    // create pet document
+    if(!petSnapShot.exists) {
+        const createdAt = new Date();
+        const mainOwner = userAuth.uid;
+        console.log(userAuth)
+        try {
+           await petRef.set({
+               id,
+               createdAt,
+               mainOwner,
+               ...additionalData
+           }); 
+        } catch(error) {
+            console.log('pet creation error', error.message)
+        }
+    }
+    return id;
+}
+
+export const createPetInUserProfileDocument = async (userAuth,id, additionalData) => {
+    if(!userAuth) return;
+
+    console.log("creating pet id", id, "for user", userAuth)
+
+    // initialize a doc with the user id
+    const petRef = firestore.doc(`users/${userAuth.uid}/pets/${id}`);
+    
+
+    // get a snapshot of reference
+    const petSnapShot = await petRef.get();
+
+
+    // create pet document
+    if(!petSnapShot.exists) {
+        const createdAt = new Date();
+        const mainOwner = true;
+        console.log(userAuth)
+        try {
+           await petRef.set({
+               createdAt,
+               mainOwner,
+               id,
+               ...additionalData
+           }); 
+        } catch(error) {
+            console.log('pet creation error', error.message)
+        }
+    }
+    return petRef;
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/firebase.utils'
+import {connect} from 'react-redux'
 
+import { auth } from '../../firebase/firebase.utils'
 import { ReactComponent as Logo } from '../../assets/paw-black-shape.svg';
 
 import './navbar.styles.scss';
@@ -25,6 +26,9 @@ const Navbar = ({currentUser}) => (
             <Link className="option" to="/userprofile">
                 USERPROFILE
             </Link>
+            <Link className="option" to ="/userinfobyid">
+                View Userinfo by Id
+            </Link>
             {
                 currentUser ?
                     <div className='option' onClick={() => auth.signOut()}>
@@ -40,4 +44,8 @@ const Navbar = ({currentUser}) => (
 	</div>
 );
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+    currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Navbar);
