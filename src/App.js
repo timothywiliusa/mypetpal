@@ -69,7 +69,7 @@ class App extends Component {
             )
             }  
           />
-          {/* <Route exact path="/signup" render={(props)=> <Signup currentUser={this.state.currentUser}/>} /> */}
+          <Route exact path="/signup" render={(props)=> <Signup currentUser={this.props.currentUser}/>} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets} />

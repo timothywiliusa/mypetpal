@@ -71,7 +71,9 @@ function ViewFriends({currentUser}){
         var qString = '';
         if(e.target.id < user.email){qString = e.target.id+user.email;} else{qString = user.email+e.target.id;}
         console.log(qString, ' ', user.uid);
+        
         setQuery(firestore.collection('chat').doc(qString).collection('chat'));
+        
         if(!chat){setChat(true)}else if(e.target.id === friend || friend === "h"){
             console.log(chat);
             setChat(!chat);
