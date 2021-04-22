@@ -63,6 +63,11 @@ class AddFriend extends Component {
                             id: uuidv4(),
                             accepted: false
                         })
+                        firestore.collection('users').doc(doc.id).collection('friends').doc(that.props.currentUser.uid).set({
+                            email: that.props.currentUser.email,
+                            accepted: false,
+                            received: true
+                        })
                     
                         that.setState({
                             friendEmail: ''

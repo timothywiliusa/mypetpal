@@ -12,8 +12,12 @@ exports.firestoreEmail = functions.firestore.document('users/{userId}/friends/{f
     .onCreate((snapshot, context) =>{
         const userId = context.params.userId;
         const friendId = context.params.friendId;
-
         const db = admin.firestore();
+        const userRef = db.collection('users').doc(userId);
+        userRef.get().then((doc)=>{
+            const docData = doc.data();
+            const userEmail = docData.email;
+
         console.log('cmon man');
         return db.collection('users').doc(userId).collection('friends').doc(friendId).get().then(doc =>{
             const user = doc.data();
@@ -21,11 +25,11 @@ exports.firestoreEmail = functions.firestore.document('users/{userId}/friends/{f
                 to: user.email,
                 from: 'frithp@oregonstate.edu',
                 subject: 'Add a new friend on My Pet Pal!',
-                body: 'localhost:3000/friends/add-friend/'+userId+'/'+friendId,
-                text: 'localhost:3000/friends/add-friend/'+userId+'/'+friendId,
-                html: '<strong>'+'localhost:3000/friends/add-friend/'+userId+'/'+friendId+'</strong>',
+                body: 'localhost:3000/friends/add-friend/'+userEmail+'/'+friendId,
+                text: 'localhost:3000/friends/add-friend/'+userEmail+'/'+friendId,
+                html: '<strong>'+'localhost:3000/friends/add-friend/'+userEmail+'/'+friendId+'</strong>',
             };
             return sgMail.send(msg)
-        })
-        .then(()=> console.log('email sent')).catch(err => console.log(err))
+        }).then(()=> console.log('email sent')).catch(err => console.log(err))
+        })   
     });

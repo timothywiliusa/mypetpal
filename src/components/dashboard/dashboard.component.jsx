@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
@@ -86,10 +86,6 @@ class Dashboard extends Component {
 function ViewReminders(){
     const [reminders, setReminders] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [chat,setChat] = useState(false);
-    const [friend, setFriend] = useState("h");
-    const [user, setUser] = useState();
-    const [query, setQuery] = useState();
 
     // useEffect(() =>{
     //     function getReminders(){

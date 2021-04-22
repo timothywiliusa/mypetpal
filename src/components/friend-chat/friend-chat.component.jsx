@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import firebase from 'firebase/app';
+import { firestore } from '../../firebase/firebase.utils'
 import './friend-chat.styles.scss';
 import { v4 as uuidv4} from 'uuid';
 
