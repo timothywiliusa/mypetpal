@@ -16,15 +16,17 @@ function ViewFriends({currentUser}){
     const [user, setUser] = useState();
     const [query, setQuery] = useState();
     const [chatId, setChatId] = useState();
-    const [receive, setReceive] = useState();
-
+    const [friendRef, setFriendRef] = useState();
+    const [bool, setBool] = useState(false);
+    
     useEffect(() =>{
         function getFriends(){
             firebase.auth().onAuthStateChanged(function(user){
             if(user){
                 setUser(user);
                 let ref = firestore.collection('users').doc(user.uid);
-                ref = ref.collection('friends').where('accepted', '==', true).limit(10);
+                ref = ref.collection('friends').where('accepted', '==', true);
+                setFriendRef(ref);
                 ref.get().then((item)=>{
                     const items = item.docs.map((doc)=>doc.data());
                     setFriends1(items);
@@ -41,8 +43,10 @@ function ViewFriends({currentUser}){
     if(id){
         firebase.auth().onAuthStateChanged(function(user){
             if(user){
+                setUser(user);
+                
                 //console.log(user.uid);
-                if(id === 'add-friend' && uid2 === user.uid){
+                if(id === 'add-friend'){
                     //console.log('hey');
 
                     let friendRef = firestore.collection('users').doc(user.uid);
@@ -50,34 +54,33 @@ function ViewFriends({currentUser}){
                     friendRef.then((querySnapShot) =>{
                         querySnapShot.forEach((doc) =>{
                             let docData = doc.data();
-                            console.log(docData);
                             console.log(doc.id);
-                            const ref = firestore.collection('users').doc(doc.id).get();
-                            const chatId = uuidv4();
-                            ref.then((doc1)=>{
-                                const docRef = doc1.data();
-                                console.log('docid', doc1.id);
-                                firestore.collection('users').doc(uid2).collection('friends').doc(doc1.id).set({
-                                    email: docRef.email,
-                                    id: uuidv4(),
-                                    accepted: true,
-                                    chatId: chatId
-                                })
-                                firestore.collection('users').doc(doc.id).collection('friends').doc(uid2).set({
-                                    accepted: true,
-                                    email: user.email,
-                                    id: uuidv4(),
-                                    chatId: chatId
-                                })
-                            });
-                    
+                            if(docData.received){
+                                const ref = firestore.collection('users').doc(doc.id).get();
+                                const chatId = uuidv4();
+                                ref.then((doc1)=>{
+                                    const docRef = doc1.data();
+                                    console.log('docid', doc1.id);
+                                    firestore.collection('users').doc(user.uid).collection('friends').doc(doc1.id).set({
+                                        email: docRef.email,
+                                        accepted: true,
+                                        chatId: chatId
+                                    })
+                                    firestore.collection('users').doc(doc.id).collection('friends').doc(user.uid).set({
+                                        accepted: true,
+                                        email: user.email,
+                                        chatId: chatId
+                                    })
+                                });
+                            }
                         })
                     })
-
                 }
+                
             }
         })
         console.log(uid1, uid2);
+                
         return <Redirect to='/friends'/>
     }
 
@@ -102,10 +105,8 @@ function ViewFriends({currentUser}){
         })
         
         if(!chat){setChat(true)}else if(e.target.id === friend || friend === "h"){
-            console.log(chat);
             setChat(!chat);
         }
-        console.log(chatId);
     }
 
     if(currentUser){

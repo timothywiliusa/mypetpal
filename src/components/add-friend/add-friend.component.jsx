@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4} from 'uuid';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
@@ -60,7 +59,6 @@ class AddFriend extends Component {
                         console.log(that.props.currentUser.uid);
                         firestore.collection('users').doc(that.props.currentUser.uid).collection('friends').doc(doc.id).set({
                             email: friendEmail,
-                            id: uuidv4(),
                             accepted: false
                         })
                         firestore.collection('users').doc(doc.id).collection('friends').doc(that.props.currentUser.uid).set({

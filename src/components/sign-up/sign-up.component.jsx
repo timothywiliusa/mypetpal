@@ -117,14 +117,6 @@ class SignUp extends Component {
                 <h2 className='title'>I do not have an account</h2>
                 <span>Sign up with your email and password</span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
-                    <GooglePlacesAutocomplete
-                        apiKey="AIzaSyAh78Q-N9Pj6FBwcHaFJp04ZTYCwKZvpVo"
-                        name='address'
-                        value={address}
-                        selectProps={{
-                            onChange: this.handleAddress.bind(this),
-                        }}
-                    />
                     <FormInput
                         type='text'
                         name='displayName'
@@ -173,13 +165,14 @@ class SignUp extends Component {
                         label='Last Name*'
                         required
                     />
-                    {/* <FormInput
-                        type='text'
+                    <GooglePlacesAutocomplete
+                        apiKey="AIzaSyAh78Q-N9Pj6FBwcHaFJp04ZTYCwKZvpVo"
                         name='address'
                         value={address}
-                        handleChange={this.handleChange}
-                        label='Address'
-                    /> */}
+                        selectProps={{
+                            onChange: this.handleAddress.bind(this),
+                        }}
+                    />
                     <PhoneInput
                         country='us'
                         regions={['north-america']}

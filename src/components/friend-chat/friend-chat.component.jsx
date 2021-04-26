@@ -3,6 +3,8 @@ import firebase from 'firebase/app';
 import { firestore } from '../../firebase/firebase.utils'
 import './friend-chat.styles.scss';
 import { v4 as uuidv4} from 'uuid';
+import CustomButton from '../custom-button/custom-button.component';
+
 
 function FriendChat({chatReference}){
     const [chat, setChat] = useState([]);
@@ -33,29 +35,30 @@ function FriendChat({chatReference}){
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
 
-    const ScrollToBottom = () =>{
-        if(silly){
-        if(dummy.current){
-            dummy.current.scrollIntoView({ behavior: 'smooth' });
-            setScroll(false);
-            return<div/>
-        }
-        }
-        return<div/>
-    }
+    // const scrollToBottom = () =>{
+    //     console.log('scroll');
+    //     if(dummy.current){
+    //         dummy.current.scrollIntoView({ behavior: 'smooth' });
+    //         setScroll(false);
+    //         return<div/>
+    //     }
+    //     return<div/>
+    // }
     
     return(
         <>
+            
             <div className='msgs'>
                 {chatReference && chat.map(msg => <ChatMessage key={msg.id} message={msg} msgid={msg.id}/>)}
-                <span ref={dummy}></span>
-                {scroll ? <ScrollToBottom/> : null}
+                <a ref={dummy}></a>
             </div>
+            <div className="sendbox">
             <form className="send" onSubmit={sendMessage}>
-                <input value={formValue} onChange={(e)=> setFormValue(e.target.value)}></input>
-                <button type="submit">send</button>
+                <input className="textinput" value={formValue} onChange={(e)=> setFormValue(e.target.value)}></input>
+                <CustomButton isSendButton type="submit">send</CustomButton>
             </form>
-            <span ref={silly}/>
+            </div>
+            
         </>
     )
 }
@@ -67,7 +70,7 @@ function ChatMessage(props){
     return(
         <div className="ch">
             <div className={`message ${messageClass}`}>
-               <div>{text}</div>
+                <div>{text}</div>
             </div>
         </div>
     )
