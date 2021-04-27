@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
@@ -55,7 +55,7 @@ class Dashboard extends Component {
         const { reminder, dateTime } = this.state; 
         return(
             <div className='add-reminder'>
-                <h2 className='title'>Add a Friend</h2>
+                <h2 className='title'>Create a Reminder</h2>
                 <form className='add-reminder-form' onSubmit={this.handleSubmit}>
                     <FormInput
                         type='text'
@@ -86,10 +86,6 @@ class Dashboard extends Component {
 function ViewReminders(){
     const [reminders, setReminders] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [chat,setChat] = useState(false);
-    const [friend, setFriend] = useState("h");
-    const [user, setUser] = useState();
-    const [query, setQuery] = useState();
 
     // useEffect(() =>{
     //     function getReminders(){
@@ -110,7 +106,7 @@ function ViewReminders(){
     // },[]);
     firebase.auth().onAuthStateChanged(function(user){
         if(user){
-        firestore.collection('users').doc(user.uid).collection('reminders').get().then((item)=>{
+        firestore.collection('users').doc(user.uid).collection('reminders').orderBy('dateTime').get().then((item)=>{
             const items = item.docs.map((doc)=>doc.data());
             //console.log(items);
             setReminders(items);
@@ -127,7 +123,7 @@ function ViewReminders(){
     if(firebase.auth().currentUser){
         return (
             <div className='friends-holder'>
-                <h1 className='header'>Friends</h1>
+                <h1 className='header'>Reminders</h1>
                 <div className='friends-list'>
                 {reminders.map((reminder) =>(
                     <div className='friend' key={reminder.id}>
