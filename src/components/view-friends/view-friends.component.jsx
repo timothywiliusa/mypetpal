@@ -50,8 +50,8 @@ function ViewFriends({currentUser}){
                     //console.log('hey');
 
                     let friendRef = firestore.collection('users').doc(user.uid);
-                    friendRef = friendRef.collection('friends').where('email', '==', uid1).get();
-                    friendRef.then((querySnapShot) =>{
+                    friendRef = friendRef.collection('friends');
+                    friendRef.where('email', '==', uid1).get().then((querySnapShot) =>{
                         querySnapShot.forEach((doc) =>{
                             let docData = doc.data();
                             console.log(doc.id);
@@ -73,6 +73,11 @@ function ViewFriends({currentUser}){
                                     })
                                 });
                             }
+                            friendRef.get().then((item)=>{
+                                const items = item.docs.map((doc)=>doc.data());
+                                setFriends1(items);
+                                setLoading(false);
+                            });
                         })
                     })
                 }
@@ -80,7 +85,6 @@ function ViewFriends({currentUser}){
             }
         })
         console.log(uid1, uid2);
-                
         return <Redirect to='/friends'/>
     }
 
@@ -109,7 +113,7 @@ function ViewFriends({currentUser}){
         }
     }
 
-    if(currentUser){
+    if(user){
         return (
             <div className='friends-holder'>
                 <h1 className='header'>Friends</h1>

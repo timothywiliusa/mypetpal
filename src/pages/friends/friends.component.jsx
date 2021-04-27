@@ -6,8 +6,8 @@ import ViewFriends from '../../components/view-friends/view-friends.component';
 
 const friends = ({currentUser}) => (
 	<div className="friends">
-		<AddFriend currentUser={currentUser}/>
-		<ViewFriends currentUser={currentUser}/>
+		<AddFriend/>
+		<ViewFriends/>
 	</div>
 );
 
