@@ -4,7 +4,9 @@ import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, firestore, createUserProfileDocument, getUserDocumentReference } from '../../firebase/firebase.utils';
 import './sign-up.styles.scss';
-//import firebase from 'firebase/app';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 
 class SignUp extends Component {
@@ -17,7 +19,7 @@ class SignUp extends Component {
             confirmPassword: '',
             firstName: '',
             lastName: '',
-            address: '',
+            address: 's',
             phoneNumber: '',
             user: null
         };     
@@ -49,9 +51,8 @@ class SignUp extends Component {
 	  
 			  this.setState({ currentUser: userAuth });
 			}
-		  );
+		);
     }
-    
 
     handleSubmit =  async e => {
         e.preventDefault();
@@ -85,10 +86,13 @@ class SignUp extends Component {
 
     handleChange = e => {
         const { name, value } = e.target;
-
+        console.log(this.state.phoneNumber);
         this.setState({[name]: value})
     }
-    
+    handleAddress(e){
+        this.setState({address: e.label});
+    }
+
     getName(){
         const{user} = this.state;
         if(user==null){
@@ -161,26 +165,29 @@ class SignUp extends Component {
                         label='Last Name*'
                         required
                     />
-                    <FormInput
-                        type='text'
+                    <GooglePlacesAutocomplete
+                        apiKey="AIzaSyAh78Q-N9Pj6FBwcHaFJp04ZTYCwKZvpVo"
                         name='address'
                         value={address}
-                        handleChange={this.handleChange}
-                        label='Address'
+                        selectProps={{
+                            onChange: this.handleAddress.bind(this),
+                        }}
                     />
-                    <FormInput
-                        type='text'
+                    <PhoneInput
+                        country='us'
+                        regions={['north-america']}
+                        //type='text'
                         name='phoneNumber'
                         value={phoneNumber}
-                        handleChange={this.handleChange}
+                        onChange={phoneNumber => this.setState({ phoneNumber})}
                         label='Phone Number'
                     />
                     <CustomButton type='submit'>
 							CREATE ACCOUNT
 					</CustomButton>
                 </form>
-                    
             </div>
+            
         )
     }
 }

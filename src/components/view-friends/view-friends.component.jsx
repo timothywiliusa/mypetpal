@@ -15,14 +15,18 @@ function ViewFriends({currentUser}){
     const [friend, setFriend] = useState("h");
     const [user, setUser] = useState();
     const [query, setQuery] = useState();
-
+    const [chatId, setChatId] = useState();
+    const [friendRef, setFriendRef] = useState();
+    const [bool, setBool] = useState(false);
+    
     useEffect(() =>{
         function getFriends(){
             firebase.auth().onAuthStateChanged(function(user){
             if(user){
                 setUser(user);
                 let ref = firestore.collection('users').doc(user.uid);
-                ref = ref.collection('friends').where('accepted', '==', true).limit(10);
+                ref = ref.collection('friends').where('accepted', '==', true);
+                setFriendRef(ref);
                 ref.get().then((item)=>{
                     const items = item.docs.map((doc)=>doc.data());
                     setFriends1(items);
@@ -33,32 +37,50 @@ function ViewFriends({currentUser}){
         }
         getFriends();        
     },[]);
+
+    
     const {id, uid1, uid2} = useParams();
     if(id){
         firebase.auth().onAuthStateChanged(function(user){
             if(user){
-                console.log(user.uid);
-                if(id === 'add-friend' && uid2 === user.uid){
-                    console.log('hey');
-                    const ref = firestore.collection('users').doc(uid1).get();
-                    ref.then((doc)=>{
-                        const docRef = doc.data();
-                        console.log(doc.id);
-                        firestore.collection('users').doc(uid2).collection('friends').doc(doc.id).set({
-                            email: docRef.email,
-                            id: uuidv4(),
-                            accepted: true
+                setUser(user);
+                
+                //console.log(user.uid);
+                if(id === 'add-friend'){
+                    //console.log('hey');
+
+                    let friendRef = firestore.collection('users').doc(user.uid);
+                    friendRef = friendRef.collection('friends').where('email', '==', uid1).get();
+                    friendRef.then((querySnapShot) =>{
+                        querySnapShot.forEach((doc) =>{
+                            let docData = doc.data();
+                            console.log(doc.id);
+                            if(docData.received){
+                                const ref = firestore.collection('users').doc(doc.id).get();
+                                const chatId = uuidv4();
+                                ref.then((doc1)=>{
+                                    const docRef = doc1.data();
+                                    console.log('docid', doc1.id);
+                                    firestore.collection('users').doc(user.uid).collection('friends').doc(doc1.id).set({
+                                        email: docRef.email,
+                                        accepted: true,
+                                        chatId: chatId
+                                    })
+                                    firestore.collection('users').doc(doc.id).collection('friends').doc(user.uid).set({
+                                        accepted: true,
+                                        email: user.email,
+                                        chatId: chatId
+                                    })
+                                });
+                            }
                         })
-                        firestore.collection('users').doc(uid1).collection('friends').doc(uid2).set({
-                            accepted: true,
-                            email: user.email,
-                            id: uuidv4()
-                        })
-                    });
+                    })
                 }
+                
             }
         })
         console.log(uid1, uid2);
+                
         return <Redirect to='/friends'/>
     }
 
@@ -66,16 +88,23 @@ function ViewFriends({currentUser}){
     if(loading){
         return<h1>loading..</h1>;
     }
-    function toggle(e){
-        setFriend(e.target.id);
-        var qString = '';
-        if(e.target.id < user.email){qString = e.target.id+user.email;} else{qString = user.email+e.target.id;}
-        console.log(qString, ' ', user.uid);
+
+    async function toggle(e){
         
-        setQuery(firestore.collection('chat').doc(qString).collection('chat'));
+        setFriend(e.target.id);
+
+        let ref = await firestore.collection('users').doc(user.uid);
+        ref = ref.collection('friends').where('email', '==', e.target.id).get();
+        
+        await ref.then((querySnapShot) =>{
+            querySnapShot.forEach((doc) =>{
+                let docData = doc.data();
+                setChatId(docData.chatId);
+                setQuery(firestore.collection('chat').doc(doc.data().chatId).collection('chat'));
+            })
+        })
         
         if(!chat){setChat(true)}else if(e.target.id === friend || friend === "h"){
-            console.log(chat);
             setChat(!chat);
         }
     }
