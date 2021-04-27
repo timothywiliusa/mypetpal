@@ -7,7 +7,7 @@ import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
 import Login from './pages/login/login.component';
-import Signup from './pages/signup/signup.component';
+//import Signup from './pages/signup/signup.component';
 import Contact from './pages/contact/contact-us.component';
 import Support from './pages/support/support.component';
 import Pets from './pages/pets/pets.component';
@@ -34,12 +34,16 @@ class App extends Component {
     const {setCurrentUser} = this.props
 
     //user authentication
+    console.log("hi");
+    console.log(this.props.currentUser)
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {
         if(userAuth){
+          
+          console.log(userAuth);
 
           setCurrentUser(userAuth);
-
+          
 
           // const userRef = getUserDocumentReference(userAuth);
 
@@ -60,7 +64,15 @@ class App extends Component {
       <div>
         <Navbar/>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          
+          <Route exact path="/" render={() => 
+            this.props.currentUser ? ( 
+              <HomePage />
+            ) : (
+              <Redirect to='/login' />
+            )
+            }  
+          />
           <Route exact path="/login" render={() => 
             this.props.currentUser ? ( 
               <Redirect to='/' />
@@ -69,7 +81,7 @@ class App extends Component {
             )
             }  
           />
-          {/* <Route exact path="/signup" render={(props)=> <Signup currentUser={this.state.currentUser}/>} /> */}
+
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets} />
@@ -88,8 +100,8 @@ class App extends Component {
 }
 
 
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({
