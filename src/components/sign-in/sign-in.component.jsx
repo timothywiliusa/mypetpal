@@ -63,8 +63,7 @@ class SignIn extends Component {
 					<div className='buttons' >
 					<CustomButton type='submit' value='Submit Form'>sign in</CustomButton>
 					<CustomButton type='button' onClick={signInWithGoogle} isGoogleSignIn>sign in with google</CustomButton>
-					<div className='question'>First time signing up?</div>
-					<Link className="create" to="/signup"> Create Account </Link>
+					<Link to="/signup"> <CustomButton type='button'>create account</CustomButton> </Link>
 					</div>
 				</form>
 			</div>
