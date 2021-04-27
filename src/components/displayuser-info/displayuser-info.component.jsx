@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
-import {auth, getUserDocumentReference, getCurrentUser} from '../../firebase/firebase.utils';
-import { Card,Form,Button} from "react-bootstrap";
+import {auth, getUserDocumentReference} from '../../firebase/firebase.utils';
+import { Card} from "react-bootstrap";
 
 class Userprofile extends Component {
 
@@ -43,9 +43,6 @@ class Userprofile extends Component {
 	}
 		
 	
-
-
-
 	render(){
 
 	
@@ -55,7 +52,6 @@ class Userprofile extends Component {
                     <Card.Body>
                         <h2 className = "text center mb-4"> Profile </h2>
                         <p>Email: {this.state.currentUser != null ? this.state.currentUser.email : null}</p>
-                        <p>User-Id: {this.state.currentUser != null ? this.state.currentUser.id : null} </p>
                         <p>First Name: {this.state.currentUser != null ? this.state.currentUser.firstName : null} </p>
                         <p>Display Name: {this.state.currentUser != null ? this.state.currentUser.displayName : null} </p>
                         <p>Address: {this.state.currentUser != null ? this.state.currentUser.address : null} </p>
