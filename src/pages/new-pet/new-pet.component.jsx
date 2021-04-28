@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import './new-pet.styles.scss';
 
-import { createPetInUserProfileDocument, firestore } from '../../firebase/firebase.utils'
+
+import { createPetInUserProfileDocument, firestore, addUserInPetProfileDocument} from '../../firebase/firebase.utils'
 
 import NewPetForm from '../../components/new-pet-form/new-pet-form.component'
 
@@ -78,7 +79,9 @@ class NewPet extends Component{
 			const {petName, photoUrl} = this.state.currentPet
 
 			createPetInUserProfileDocument(currentUser,id,{petName, photoUrl})
+			addUserInPetProfileDocument(currentUser,id)
 
+			
 			return(
 				<Redirect to="/pets" />
 			)
