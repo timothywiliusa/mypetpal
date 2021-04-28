@@ -28,6 +28,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
     // check if the user exists
     if(!snapShot.exists) {
+        console.log("timtim",userAuth)
         const { displayName, email } = userAuth;
         const createdAt = new Date();
         try {
@@ -132,11 +133,12 @@ export const createPetInUserProfileDocument = async (userAuth,id, additionalData
 
     // initialize a doc with the user id
     const petRef = firestore.doc(`users/${userAuth.uid}/pets/${id}`);
-    
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
 
     // get a snapshot of reference
     const petSnapShot = await petRef.get();
-
+    const userSnapShot = await userRef.get();
+    
 
     // create pet document
     if(!petSnapShot.exists) {
@@ -152,6 +154,39 @@ export const createPetInUserProfileDocument = async (userAuth,id, additionalData
            }); 
         } catch(error) {
             console.log('pet creation error', error.message)
+        }
+    }
+
+
+    return petRef;
+}
+
+
+export const addUserInPetProfileDocument = async (userAuth,id, additionalData) => {
+    if(!userAuth) return;
+
+    console.log("adding user", userAuth, "into pet", id )
+
+    // find the pet
+    const petRef = firestore.doc(`pets/${id}`);
+    
+
+    // get a snapshot of reference
+    const petSnapShot = await petRef.get();
+
+
+    // create pet document
+    if(!petSnapShot.exists) {
+        const uid = userAuth.uid;
+        // const createdAt = new Date();
+        // const mainOwner = true;
+        console.log(uid)
+        try {
+           await petRef.set({
+               uid
+           }); 
+        } catch(error) {
+            console.log('adding user into pet error', error.message)
         }
     }
     return petRef;

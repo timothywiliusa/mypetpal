@@ -22,7 +22,7 @@ import PetProfile from './pages/pet-profile/pet-profile.component'
 import UserProfile from './pages/userprofile/userprofile.component'
 
 import Userinfobyid from './pages/userinfobyid/userinfobyid.component'
-import { auth, getUserDocumentReference } from './firebase/firebase.utils';
+import { auth, getUserDocumentReference , createUserProfileDocument} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions'
 
 
@@ -43,7 +43,8 @@ class App extends Component {
           console.log(userAuth);
 
           setCurrentUser(userAuth);
-          
+
+          createUserProfileDocument(userAuth)
 
           // const userRef = getUserDocumentReference(userAuth);
 
@@ -81,13 +82,12 @@ class App extends Component {
             )
             }  
           />
-
-          //<Route exact path="" render={(props)=> <Signup currentUser={this.props.currentUser}/>} />
-           <Route exact path="/signup" component={Signup} />
+          
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/support" component={Support} />
           <Route exact path="/pets" component={Pets} />
-          <Route exact path="/friends/:id?/:uid1?/:uid2?" render={(props)=><Friends currentUser={this.props.currentUser}/>} />
+          <Route path="/friends/:id?/:uid1?/:uid2?" component={Friends} />
           <Route exact path="/vets" component={Vets} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/shop" component={Shop} />
@@ -100,7 +100,7 @@ class App extends Component {
     );
   }
 }
-
+///
 
 const mapStateToProps = (state) => ({
   currentUser: state.user.currentUser
