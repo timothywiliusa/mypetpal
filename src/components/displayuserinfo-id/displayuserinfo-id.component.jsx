@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import { firestore} from '../../firebase/firebase.utils';
-
+import Button from '../custom-button/custom-button.component';
+import FormInput from '../form-input/form-input-component';
+import './displayuserinfo-id.scss';
 
 class Userinfobyid extends Component{
     
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state = {
             inputValue: '',
+            email:'',
+            firstname:'',
+            phone:'',
+            address:'',
             currentUser: null
         };
     }
@@ -38,26 +44,23 @@ class Userinfobyid extends Component{
     
     handlePost = () =>{
         const {inputValue} = this.state;
-        console.log (inputValue, "-----userid")
+        console.log (inputValue, "-----userid");
+        var userRef = firestore.collection('users');
         if(this.state.inputValue !== ''){
-            var query = firestore.collection('users').doc(this.state.inputValue).get();
-            query.then((doc)=>{
-                if(doc.exists){
-                    this.setState({displayName: doc.data().displayName});
-                    this.setState({email: doc.data().email});
-                    this.setState({firstname: doc.data().firstName});
-                    this.setState({phone: doc.data().phoneNumber});
-                    this.setState({address: doc.data().address});
-            }
-            })
+            let query = userRef.where("email", "==", this.state.inputValue).get();
+            query.then((querySnapshot) =>{
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.id, "=", doc.data());
+                    this.setState({
+                        displayName: doc.data().displayName,
+                        firstname: doc.data().firstName,
+                        phone: doc.data().phoneNumber,
+                        address: doc.data().address
+                    })
+                })
+            });
         }
-        else{
-            console.log('Wrong Input');
-            this.setState({
-                inputValue:''
-            })
-        }
-    }
+    };
 
 
 
@@ -65,18 +68,25 @@ class Userinfobyid extends Component{
     render(){
         return(
             <div>
-                <input
-                    value = {this.state.inputValue}
-                    onChange = {this.handleGetinputValue}
-                />
-                <button onClick = {this.handlePost}> submit </button>
-                <h2 className = "text center mb-4"> Profile </h2>
-                    <p>Email: {this.state.email}</p> 
-                    <p>User-Id: {this.state.inputValue} </p>
+                <h2> Profile </h2>
+                    <p>Email: {this.state.inputValue}</p> 
                     <p>First Name: {this.state.firstname} </p>
                     <p>Display Name: {this.state.displayName} </p>
                     <p>Address: {this.state.address} </p>
                     <p>Phone Number: {this.state.phone} </p>
+                <div className = 'EnterInfo'>
+                    <div className = 'UserId'>
+                        <h3>Enter User Email to View the User Information</h3>
+                        <FormInput
+                            value = {this.state.inputValue}
+                            onChange = {this.handleGetinputValue}
+                            label='email'
+                        />
+                    </div>
+                    <div className = 'buttons'>
+                        <Button onClick = {this.handlePost}> submit </Button>
+                    </div>
+                </div>
             </div>
         )
     }

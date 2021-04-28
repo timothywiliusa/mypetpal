@@ -22,9 +22,10 @@ class AddFriend extends Component {
 
     handleSubmit =  async e => {
         e.preventDefault();
-        
-        const { friendEmail } = this.state;
         var that = this;
+        const { friendEmail } = this.state;
+        firebase.auth().onAuthStateChanged(function(user){
+        
         //const ref = firestore.collection('friends');
         // const ref1 =ref.where(friendEmail,'==',this.props.currentUser.email);
         // const ref2 =ref.where(this.props.currentUser.email,'==',friendEmail);
@@ -50,19 +51,19 @@ class AddFriend extends Component {
             query.then(function(querySnapshot){
                 querySnapshot.forEach(function(doc){ if(!querySnapshot.empty){  
                 console.log(doc.id);
-                    if(friendEmail === that.props.currentUser.email){
+                    if(friendEmail === user.email){
                         console.log('that is you');
                         that.setState({
                             friendEmail: ''
                         })
                     } else{
-                        console.log(that.props.currentUser.uid);
-                        firestore.collection('users').doc(that.props.currentUser.uid).collection('friends').doc(doc.id).set({
+                        console.log(user.uid);
+                        firestore.collection('users').doc(user.uid).collection('friends').doc(doc.id).set({
                             email: friendEmail,
                             accepted: false
                         })
-                        firestore.collection('users').doc(doc.id).collection('friends').doc(that.props.currentUser.uid).set({
-                            email: that.props.currentUser.email,
+                        firestore.collection('users').doc(doc.id).collection('friends').doc(user.uid).set({
+                            email: user.email,
                             accepted: false,
                             received: true
                         })
@@ -81,6 +82,7 @@ class AddFriend extends Component {
         } catch(error) {
             console.error(error);
         }
+        })
     };
 
     handleChange = e => {
