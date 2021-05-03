@@ -1,0 +1,21 @@
+.reminder{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+    border: 1px solid black;
+    background-color: rgb(230, 230, 230);
+    margin-bottom: 1%;
+    .text{
+        font-weight:900;
+        font-size: 30px;
+        width: 80%;
+        border-bottom: 1px solid black;
+    }
+    .date{
+        font-size: 18px; 
+    }
+    .checked{
+        margin-top: 70%;
+    }
+}

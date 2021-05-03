@@ -33,7 +33,10 @@ exports.firestoreEmail = functions.firestore.document('users/{userId}/friends/{f
                     subject: 'Add a new friend on My Pet Pal!',
                     html: '<strong>'+'localhost:3000/friends/add-friend/'+userEmail+'</strong>',
                 };
-                return sgMail.send(msg).then(()=> console.log('email sent to receiver'));
+                return sgMail.send(msg).then(()=> console.log('email sent to receiver ',user.email).catch(error => {
+                    const {message, code, response} = error;
+                    console.log(`${error.code} :${error.message}`);
+                }));
                 //}
             });
         }else {

@@ -7,7 +7,13 @@ class Userprofile extends Component {
 	constructor(){
 		super()
 		this.state = {
-			currentUser : null
+			currentUser : {
+				email: null,
+				firstName: null,
+				displayName: null,
+				address: null,
+				phoneNumber: null
+			}
 		};
 	}
 
@@ -51,11 +57,11 @@ class Userprofile extends Component {
                 <Card>
                     <Card.Body>
                         <h2 className = "text center mb-4"> Profile </h2>
-                        <p>Email: {this.state.currentUser != null ? this.state.currentUser.email : null}</p>
-                        <p>First Name: {this.state.currentUser != null ? this.state.currentUser.firstName : null} </p>
-                        <p>Display Name: {this.state.currentUser != null ? this.state.currentUser.displayName : null} </p>
-                        <p>Address: {this.state.currentUser != null ? this.state.currentUser.address : null} </p>
-                        <p>Phone Number: {this.state.currentUser != null ? this.state.currentUser.phoneNumber : null} </p>
+                        <p>{this.state.currentUser.email != null && this.state.currentUser.email != undefined ? "Email: " + this.state.currentUser.email : null}</p>
+						<p>{this.state.currentUser.displayName != null && this.state.currentUser.displayName != undefined ? "Display Name: " + this.state.currentUser.displayName : null} </p>
+						<p>{this.state.currentUser.firstName != null && this.state.currentUser.firstName != undefined ? "First Name: " + this.state.currentUser.firstName : null} </p>
+                        <p>{this.state.currentUser.address != null && this.state.currentUser.address != undefined ? "Address: " + this.state.currentUser.address : null} </p>
+                        <p>{this.state.currentUser.phoneNumber != null && this.state.currentUser.phoneNumber != undefined ? "Phone Number: " + this.state.currentUser.phoneNumber : null} </p>
                     </Card.Body>
 				</Card>
 			</div>
