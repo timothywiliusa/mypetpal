@@ -39,7 +39,7 @@ class Navbar extends Component {
                         USERPROFILE
                     </Link>
                     <Link className="option" to ="/userinfobyid">
-                        View Userinfo by Id
+                        View Userinfo by Email
                     </Link>
                     {
                         this.props.currentUser ?
