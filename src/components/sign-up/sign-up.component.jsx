@@ -31,11 +31,11 @@ class SignUp extends Component {
 			userAuth => {
 			  if(userAuth){
 				const userRef = getUserDocumentReference(userAuth);
-				console.log("userAuth",userAuth)
-				console.log("userRef",userRef)
+				//console.log("userAuth",userAuth)
+				//console.log("userRef",userRef)
 
 				userRef.onSnapshot(snapShot => {
-					console.log("snapshot", snapShot)
+					//console.log("snapshot", snapShot)
 				  this.setState({
 					currentUser: {
 					  id: snapShot.id,
@@ -44,7 +44,7 @@ class SignUp extends Component {
 				  },
 				  () => {
 					//logging current user from a snapshot of the database
-					console.log("state",this.state);
+					//console.log("state",this.state);
 				  });
 				});
 			  }
@@ -86,7 +86,7 @@ class SignUp extends Component {
 
     handleChange = e => {
         const { name, value } = e.target;
-        console.log(this.state.phoneNumber);
+        //console.log(this.state.phoneNumber);
         this.setState({[name]: value})
     }
     handleAddress(e){
@@ -96,13 +96,13 @@ class SignUp extends Component {
     getName(){
         const{user} = this.state;
         if(user==null){
-            console.log('hello');
+            //console.log('hello');
             return 'nope';
         }
         var userRef = firestore.collection('users').doc(user.uid);
         userRef.get().then((doc)=>{
             if(doc.exists){
-                console.log("document data: ", doc.data());
+                //console.log("document data: ", doc.data());
                 this.setState({displayName: doc.data().displayName});
             } else{
                 console.log("no can do");

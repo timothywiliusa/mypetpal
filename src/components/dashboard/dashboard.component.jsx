@@ -123,7 +123,7 @@ function ViewReminders(){
         if(bool === "false"){
             bool = !bool;
         }
-        console.log(bool);
+        //console.log(bool);
         let remRef = firestore.collection('users').doc(user.id).collection('reminders').doc(e.target.id);
         await remRef.update({
             checked: !bool,
@@ -140,7 +140,6 @@ function ViewReminders(){
         })
 
     } 
-    console.log('g');
 
         return (
             <div className='friends-holder'>

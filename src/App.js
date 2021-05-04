@@ -34,7 +34,7 @@ class App extends Component {
     const {setCurrentUser} = this.props
 
     //user authentication
-    console.log("hi");
+    //console.log("hi");
     console.log(this.props.currentUser)
     this.unsubscribeFromAuth = auth.onAuthStateChanged(
       async userAuth => {

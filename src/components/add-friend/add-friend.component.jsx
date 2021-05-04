@@ -50,14 +50,14 @@ class AddFriend extends Component {
             let query = firestore.collection('users').where('email', '==', friendEmail).get();
             query.then(function(querySnapshot){
                 querySnapshot.forEach(function(doc){ if(!querySnapshot.empty){  
-                console.log(doc.id);
+                //console.log(doc.id);
                     if(friendEmail === user.email){
                         console.log('that is you');
                         that.setState({
                             friendEmail: ''
                         })
                     } else{
-                        console.log(user.uid);
+                        //console.log(user.uid);
                         firestore.collection('users').doc(user.uid).collection('friends').doc(doc.id).set({
                             email: friendEmail,
                             accepted: false
