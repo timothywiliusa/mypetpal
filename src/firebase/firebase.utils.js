@@ -162,13 +162,14 @@ export const createPetInUserProfileDocument = async (userAuth,id, additionalData
 }
 
 
-export const addUserInPetProfileDocument = async (userAuth,id, additionalData) => {
+export const addOwnerInPetProfileDocument = async (userAuth,id, additionalData) => {
     if(!userAuth) return;
 
     console.log("adding user", userAuth, "into pet", id )
 
+    const uid = userAuth.uid;
     // find the pet
-    const petRef = firestore.doc(`pets/${id}`);
+    const petRef = firestore.doc(`pets/${id}/owners/${uid}`);
     
 
     // get a snapshot of reference
@@ -177,10 +178,8 @@ export const addUserInPetProfileDocument = async (userAuth,id, additionalData) =
 
     // create pet document
     if(!petSnapShot.exists) {
-        const uid = userAuth.uid;
+        
         // const createdAt = new Date();
-        // const mainOwner = true;
-        console.log(uid)
         try {
            await petRef.set({
                uid
@@ -189,5 +188,29 @@ export const addUserInPetProfileDocument = async (userAuth,id, additionalData) =
             console.log('adding user into pet error', error.message)
         }
     }
+    return petRef;
+}
+
+export const setMainOwnerTo = async (pid,uid, additionalData) => {
+    // initialize a doc with the user id
+    console.log(pid, uid)
+    const petRef = firestore.doc(`pets/${pid}`);
+
+    // get a snapshot of reference
+    const petSnapShot = await petRef.get();
+    
+    // create pet document
+    if(petSnapShot.exists) {
+        const mainOwner = uid
+        try {
+           await petRef.update({
+               mainOwner: mainOwner
+           }); 
+        } catch(error) {
+            console.log('main owner change error', error.message)
+        }
+    }
+
+
     return petRef;
 }
