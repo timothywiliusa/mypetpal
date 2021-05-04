@@ -26,11 +26,10 @@ class Directory extends Component {
 				// 	linkUrl: 'vets'
 				// },
 				{
-					id: 4,
+					id: 3,
 					title: 'dash board',
 					imageUrl: 'https://i.ibb.co/JcqH4yW/DASH.png',
 					linkUrl: 'dashboard',
-					size: 'large'
 				},
 				{
 					id: 5,
