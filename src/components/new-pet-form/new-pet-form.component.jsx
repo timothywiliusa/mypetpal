@@ -7,7 +7,7 @@ import './new-pet-form.styles.scss'
 
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
-import {createPetProfileDocument, createPetInUserProfileDocument} from '../../firebase/firebase.utils';
+import {createPetProfileDocument, createPetInUserProfileDocument, addOwnerInPetProfileDocument} from '../../firebase/firebase.utils';
 
 
 
@@ -39,6 +39,7 @@ class NewPetForm extends Component {
         try {
             // do firebase stuff
             const id = await createPetProfileDocument(currentUser, {age, neutered,petName, photoUrl, sex, species, weight });
+            addOwnerInPetProfileDocument(currentUser,id)
             createPetInUserProfileDocument(currentUser,id,{petName, photoUrl})
 
 

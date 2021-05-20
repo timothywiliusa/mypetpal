@@ -31,9 +31,9 @@ exports.firestoreEmail = functions.firestore.document('users/{userId}/friends/{f
                     to: user.email,
                     from: 'frithp@oregonstate.edu',
                     subject: 'Add a new friend on My Pet Pal!',
-                    html: '<strong>'+'localhost:3000/friends/add-friend/'+userEmail+'</strong>',
+                    html: '<strong>'+'https://my-pet-pal-94791.web.app/friends/add-friend/'+userEmail+'</strong>',
                 };
-                return sgMail.send(msg).then(()=> console.log('email sent to receiver'));
+                return sgMail.send(msg).then(()=> console.log('email sent to receiver ',user.email));
                 //}
             });
         }else {

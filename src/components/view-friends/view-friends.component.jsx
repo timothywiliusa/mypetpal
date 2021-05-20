@@ -54,13 +54,13 @@ function ViewFriends({currentUser}){
                     friendRef.where('email', '==', uid1).get().then((querySnapShot) =>{
                         querySnapShot.forEach((doc) =>{
                             let docData = doc.data();
-                            console.log(doc.id);
+                            //console.log(doc.id);
                             if(docData.received){
                                 const ref = firestore.collection('users').doc(doc.id).get();
                                 const chatId = uuidv4();
                                 ref.then((doc1)=>{
                                     const docRef = doc1.data();
-                                    console.log('docid', doc1.id);
+                                    //console.log('docid', doc1.id);
                                     firestore.collection('users').doc(user.uid).collection('friends').doc(doc1.id).set({
                                         email: docRef.email,
                                         accepted: true,
@@ -84,7 +84,7 @@ function ViewFriends({currentUser}){
                 
             }
         })
-        console.log(uid1, uid2);
+        //console.log(uid1, uid2);
         return <Redirect to='/friends'/>
     }
 

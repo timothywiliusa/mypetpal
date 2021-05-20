@@ -19,18 +19,17 @@ class Directory extends Component {
 					imageUrl: 'https://i.ibb.co/r44Znt3/FRIENDS.jpg',
 					linkUrl: 'friends'
 				},
+				// {
+				// 	id: 3,
+				// 	title: 'vets',
+				// 	imageUrl: 'https://i.ibb.co/MMR4Jfq/VETS.jpg',
+				// 	linkUrl: 'vets'
+				// },
 				{
 					id: 3,
-					title: 'vets',
-					imageUrl: 'https://i.ibb.co/MMR4Jfq/VETS.jpg',
-					linkUrl: 'vets'
-				},
-				{
-					id: 4,
 					title: 'dash board',
 					imageUrl: 'https://i.ibb.co/JcqH4yW/DASH.png',
 					linkUrl: 'dashboard',
-					size: 'large'
 				},
 				{
 					id: 5,

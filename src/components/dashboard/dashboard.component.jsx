@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import FormInput from '../form-input/form-input-component';
 import CustomButton from '../custom-button/custom-button.component';
 import { firestore } from '../../firebase/firebase.utils';
@@ -23,14 +23,16 @@ class Dashboard extends Component {
         e.preventDefault();
         
         const { reminder, dateTime } = this.state;
-        console.log('making friends');
+        console.log('making reminder');
         try {
             const{uid} = firebase.auth().currentUser;
             let query = firestore.collection('users').doc(uid).collection('reminders');
-            query.add({
+            const id = uuidv4();
+            query.doc(id).set({
                 text: reminder,
                 dateTime: dateTime,
-                id: uuidv4()
+                id: id,
+                checked: false
             })
             this.setState({reminder: ''});
         } catch(error) {
@@ -86,47 +88,75 @@ class Dashboard extends Component {
 function ViewReminders(){
     const [reminders, setReminders] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState();
+    const [uRef, setURef] = useState();
 
-    // useEffect(() =>{
-    //     function getReminders(){
-    //         firebase.auth().onAuthStateChanged(function(user){
-    //         if(user){
-    //             setUser(user);
-    //             let ref = firestore.collection('users').doc(user.uid);
-    //             ref = ref.collection('reminders');
-    //             ref.get().then((item)=>{
-    //                 const items = item.docs.map((doc)=>doc.data());
-    //                 setReminders(items);
-    //                 setLoading(false);
-    //             });
-    //         }
-    //         })
-    //     }
-    //     getReminders();        
-    // },[]);
-    firebase.auth().onAuthStateChanged(function(user){
-        if(user){
-        firestore.collection('users').doc(user.uid).collection('reminders').orderBy('dateTime').get().then((item)=>{
-            const items = item.docs.map((doc)=>doc.data());
-            //console.log(items);
-            setReminders(items);
+    useEffect(() =>{
+        function getReminder(){
+        firebase.auth().onAuthStateChanged(function(user){
+            if(user){
+            let userRef = firestore.collection('users').doc(user.uid);
+            setURef(userRef);
+            userRef.get().then((item)=>{
+                setUser(item);
+            })
+            userRef.collection('reminders').orderBy('dateTime').get().then((item)=>{
+                const items = item.docs.map((doc)=>doc.data());
+                //console.log(items);
+                setReminders(items);
+            })
+        }
         })
-    }
-    })
+        }
+        getReminder();
+    },[]);
+
 
 
     if(loading){
         return<h1>loading..</h1>;
     }
     
+    async function toggle(e){
+        console.log(e.target.id);
+        var bool = e.target.value;
+        if(bool === "false"){
+            bool = !bool;
+        }
+        //console.log(bool);
+        let remRef = firestore.collection('users').doc(user.id).collection('reminders').doc(e.target.id);
+        await remRef.update({
+            checked: !bool,
+            newbool: "gg"
+        })
 
-    if(firebase.auth().currentUser){
+        uRef.get().then((item)=>{
+            setUser(item);
+        })
+        uRef.collection('reminders').orderBy('dateTime').get().then((item)=>{
+            const items = item.docs.map((doc)=>doc.data());
+            //console.log(items);
+            setReminders(items);
+        })
+
+    } 
+
         return (
             <div className='friends-holder'>
                 <h1 className='header'>Reminders</h1>
                 <div className='friends-list'>
                 {reminders.map((reminder) =>(
-                    <div className='friend' key={reminder.id}>
+                    <div className='reminder' key={reminder.id}>
+                        <form>
+                        <input
+                            className="checked"
+                            onChange={toggle}
+                            type="checkbox"
+                            checked={reminder.checked}
+                            value={reminder.checked}
+                            id={reminder.id}
+                        />
+                        </form>
                         <div className='text' style={{marginLeft:'1%'}} >{reminder.text}</div>
                         <div className='date' style={{marginLeft:'1%'}} >{new Date(reminder.dateTime.toMillis()).toUTCString()}</div>
                     </div>
@@ -134,9 +164,6 @@ function ViewReminders(){
                 </div>
             </div>
         );
-    } else{
-        return<h1>Loading..</h1>;
-    } 
 }
 
 export default Dashboard;
