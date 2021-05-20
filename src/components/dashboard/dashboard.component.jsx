@@ -19,26 +19,7 @@ class Dashboard extends Component {
         };     
     }
 
-    handleSubmit =  async e => {
-        e.preventDefault();
-        
-        const { reminder, dateTime } = this.state;
-        console.log('making reminder');
-        try {
-            const{uid} = firebase.auth().currentUser;
-            let query = firestore.collection('users').doc(uid).collection('reminders');
-            const id = uuidv4();
-            query.doc(id).set({
-                text: reminder,
-                dateTime: dateTime,
-                id: id,
-                checked: false
-            })
-            this.setState({reminder: ''});
-        } catch(error) {
-            console.error(error);
-        }
-    };
+
 
     handleChange = e => {
         const { name, value } = e.target;
@@ -57,27 +38,7 @@ class Dashboard extends Component {
         const { reminder, dateTime } = this.state; 
         return(
             <div className='add-reminder'>
-                <h2 className='title'>Create a Reminder</h2>
-                <form className='add-reminder-form' onSubmit={this.handleSubmit}>
-                    <FormInput
-                        type='text'
-                        name='reminder'
-                        value={reminder}
-                        handleChange={this.handleChange}
-                        label={'What would you like to be reminded about?'}
-                        required
-                    />
-                    <DateTimePicker
-                        name='dateTime'
-                        value={dateTime}
-                        onChange={(dateTime)=> this.setState({dateTime:dateTime})}
-                        label={'What would you like to be reminded about?'}
-                        required
-                    />
-                    <CustomButton type='submit'>
-						Create Reminder
-					</CustomButton>
-                </form>
+                
                 <ViewReminders></ViewReminders>
 
             </div>
@@ -90,6 +51,8 @@ function ViewReminders(){
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState();
     const [uRef, setURef] = useState();
+    const [formValue, setFormValue] = useState('');
+    const [dateTime, setDateTime] = useState(new Date());
 
     useEffect(() =>{
         function getReminder(){
@@ -141,8 +104,55 @@ function ViewReminders(){
 
     } 
 
+    const sendMessage =  async(e) => {
+        e.preventDefault();
+        
+
+        console.log('making reminder');
+        try {
+            const{uid} = firebase.auth().currentUser;
+            let query = firestore.collection('users').doc(uid).collection('reminders');
+            const id = uuidv4();
+            query.doc(id).set({
+                text: formValue,
+                dateTime: dateTime,
+                id: id,
+                checked: false
+            })
+            setFormValue('');
+        } catch(error) {
+            console.error(error);
+        }
+        uRef.get().then((item)=>{
+            setUser(item);
+        })
+        uRef.collection('reminders').orderBy('dateTime').get().then((item)=>{
+            const items = item.docs.map((doc)=>doc.data());
+            //console.log(items);
+            setReminders(items);
+        })
+    };
+
+    const test = async(e) => {
+        console.log(e);
+    }
+
         return (
             <div className='friends-holder'>
+                <h2 className='title'>Create a Reminder</h2>
+                <form className='add-reminder-form' onSubmit={sendMessage}>
+                    <FormInput name="textinput" value={formValue} onChange={(e)=> setFormValue(e.target.value)}></FormInput>
+                    <DateTimePicker
+                        name='dateTime'
+                        value={dateTime}
+                        onChange={(e)=> setDateTime(e)}
+                        label={'What would you like to be reminded about?'}
+                        required
+                    />
+                    <CustomButton type='submit'>
+						Create Reminder
+					</CustomButton>
+                </form>
                 <h1 className='header'>Reminders</h1>
                 <div className='friends-list'>
                 {reminders.map((reminder) =>(
