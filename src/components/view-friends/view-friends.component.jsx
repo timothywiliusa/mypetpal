@@ -38,7 +38,47 @@ function ViewFriends({currentUser}){
         getFriends();        
     },[]);
 
-    
+    async function addFriends(user){
+        let friendRef = firestore.collection('users').doc(user.uid);
+        friendRef = friendRef.collection('friends');
+        await friendRef.where('email', '==', uid1).get().then(async(querySnapShot) =>{
+            console.log('heyeyheye');
+            await querySnapShot.forEach(async(doc) =>{
+                let docData = doc.data();
+                //console.log(doc.id);
+                if(docData.received){
+                    const ref = firestore.collection('users').doc(doc.id);
+                    const chatId = uuidv4();
+                    await ref.get().then(async(doc1)=>{
+                        const docRef = doc1.data();
+                        //console.log('docid', doc1.id);
+                        await firestore.collection('users').doc(user.uid).collection('friends').doc(doc1.id).set({
+                            email: docRef.email,
+                            accepted: true,
+                            chatId: chatId
+                        })
+                        await firestore.collection('users').doc(doc.id).collection('friends').doc(user.uid).set({
+                            accepted: true,
+                            email: user.email,
+                            chatId: chatId
+                        })
+                    });
+                }
+            })
+        })
+        console.log('adding...');
+        setTimeout(function (){
+        let ref = firestore.collection('users').doc(user.uid);
+        ref = ref.collection('friends').where('accepted', '==', true);
+        ref.get().then((item)=>{
+            const items = item.docs.map((doc)=>doc.data());
+            setFriends1(items);
+            setLoading(false);
+        });
+        }, 1000);
+        console.log('added!');
+    }
+
     const {id, uid1, uid2} = useParams();
     if(id){
         firebase.auth().onAuthStateChanged(function(user){
@@ -48,41 +88,10 @@ function ViewFriends({currentUser}){
                 //console.log(user.uid);
                 if(id === 'add-friend'){
                     //console.log('hey');
-
-                    let friendRef = firestore.collection('users').doc(user.uid);
-                    friendRef = friendRef.collection('friends');
-                    friendRef.where('email', '==', uid1).get().then((querySnapShot) =>{
-                        querySnapShot.forEach((doc) =>{
-                            let docData = doc.data();
-                            //console.log(doc.id);
-                            if(docData.received){
-                                const ref = firestore.collection('users').doc(doc.id).get();
-                                const chatId = uuidv4();
-                                ref.then((doc1)=>{
-                                    const docRef = doc1.data();
-                                    //console.log('docid', doc1.id);
-                                    firestore.collection('users').doc(user.uid).collection('friends').doc(doc1.id).set({
-                                        email: docRef.email,
-                                        accepted: true,
-                                        chatId: chatId
-                                    })
-                                    firestore.collection('users').doc(doc.id).collection('friends').doc(user.uid).set({
-                                        accepted: true,
-                                        email: user.email,
-                                        chatId: chatId
-                                    })
-                                });
-                            }
-                            friendRef.get().then((item)=>{
-                                const items = item.docs.map((doc)=>doc.data());
-                                setFriends1(items);
-                                setLoading(false);
-                            });
-                        })
-                    })
+                    addFriends(user);
                 }
-                
             }
+
         })
         //console.log(uid1, uid2);
         return <Redirect to='/friends'/>
